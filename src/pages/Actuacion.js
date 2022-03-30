@@ -41,7 +41,7 @@ export default function Actuacion() {
   // <------------------------------- GETTERS ------------------------------->
 
   return (
-    <div className="container scrolleable">
+    <div className="container">
       <div className="infoHeader text-white">
         {
           actuacion.isLive ? (
@@ -100,7 +100,7 @@ export default function Actuacion() {
               </div>
             );
           })}
-          <small className="font-monospace">Marchas interpretadas: {repertorios.length}</small>
+          <small className="font-monospace text-dark bg-light px-2">Marchas interpretadas: {repertorios.length}</small>
         </div>
       )}
     </div>

@@ -27,13 +27,19 @@
 }
 
 .scrolleable {
-  overflow-y: auto;
+  overflow: auto;
+  max-height: 350px;
+}
+
+.scrolleableTBody {
+  overflow: auto;
+  max-height: 700px;
+  
 }
 
 .limit {
   height: 50px;
   word-wrap: break-word;
-  overflow-y: scroll;
   font-size: x-small;
 }
 
@@ -45,6 +51,8 @@
   vertical-align: middle;
   color: #ffffff;
   text-decoration: none;
+  align-content: center;
+  align-items: center;
 }
 
 .trTableText {
@@ -86,7 +94,6 @@ td > a {
 .footer {
   vertical-align: baseline;
   position: absolute;
-  margin-left: 10%;
   margin-top: auto;
   bottom: 0;
   text-align: center;

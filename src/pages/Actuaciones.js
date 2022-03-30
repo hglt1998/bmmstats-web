@@ -39,7 +39,7 @@ export default function Actuaciones() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container scrolleableTBody">
       <h1>Actuaciones</h1>
       <p className="infoText">
         Actualmente hay <b className="bold">{rows}</b> eventos en nuestra base
@@ -66,7 +66,7 @@ export default function Actuaciones() {
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="scrolleableTBody">
             {events.map((evento) => {
               const formatedDate = new Date(evento.fecha.seconds * 1000)
                 .toLocaleString()
@@ -83,11 +83,11 @@ export default function Actuaciones() {
                       )
                     }
                   </td>
-                  <td className="limit">
-                    <p>{evento.organizador}</p>
+                  <td className="limit align-self-center">
+                    <p className="align-self-center">{evento.organizador}</p>
                   </td>
-                  <td>
-                    <small>{evento.ciudad}</small>
+                  <td className="">
+                    <small className="align-self-center">{evento.ciudad}</small>
                   </td>
                   <td>
                     <small>{formatedDate}</small>
