@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState } from "react";
 import "../index.css";
 import firebase from "../database/firebase";
@@ -31,6 +32,8 @@ export default function Actuaciones() {
         });
         setEvents(events);
         setRows(document.getElementById("table").rows.length - 1);
+
+        console.log(events);
       });
   };
 
