@@ -1,4 +1,3 @@
-import React from 'react'
 import { useEffect, useState } from "react";
 import "../index.css";
 import firebase from "../database/firebase";
@@ -6,8 +5,6 @@ import { Link } from "react-router-dom";
 
 export default function Actuaciones() {
   const [events, setEvents] = useState([]);
-
-  const [rows, setRows] = useState();
 
   const loadData = () => {
     firebase.db
@@ -27,13 +24,10 @@ export default function Actuaciones() {
             fecha: info.fecha,
             ciudad: info.ciudad,
             tipo: info.tipo,
-            isLive: info.isLive
+            isLive: info.isLive,
           });
         });
         setEvents(events);
-        setRows(document.getElementById("table").rows.length - 1);
-
-        console.log(events);
       });
   };
 
@@ -42,72 +36,84 @@ export default function Actuaciones() {
   }, []);
 
   return (
-    <div className="container scrolleableTBody">
+    <div className="container-fluid scrolleableTBody">
       <h1>Actuaciones</h1>
       <p className="infoText">
-        Actualmente hay <b className="bold">{rows}</b> eventos en nuestra base
+        Actualmente hay <b className="bold">{events.length}</b> eventos en nuestra base
         de datos
       </p>
-      <div className="table-responsive-sm mt-5">
-        <table className="table table-hover" id="table">
-          <thead className="thead-light">
-            <tr className="text-white">
-              <th scope="col">
-                <small>Concepto</small>
-              </th>
-              <th scope="col">
-                <small>Organizador</small>
-              </th>
-              <th scope="col">
-                <small>Ciudad</small>
-              </th>
-              <th scope="col">
-                <small>Fecha</small>
-              </th>
-              <th scope="col">
-                <small>Info</small>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="scrolleableTBody">
+      <div className="table-responsive-xs mt-5 m-2">
+        <div className="table table-hover" id="table">
+          <div className="thead-light border rounded ">
+              <div className="d-flex eachTR trTable justify-content-between text-white">
+                <div className="eachTD align-middle">
+                  <p className="tableHeader eachTD">Concepto</p>
+                </div>
+                <div className="eachTD align-middle">
+                  <p className="tableHeader eachTD">Organizador</p>
+                </div>
+                <div className="eachTD align-middle">
+                  <p className="tableHeader eachTD">Ciudad</p>
+                </div>
+                <div className="eachTD align-middle">
+                  <p className="tableHeader eachTD">Fecha</p>
+                </div>
+              </div>
+          </div>
+          <div className="center">
             {events.map((evento) => {
               const formatedDate = new Date(evento.fecha.seconds * 1000)
                 .toLocaleString()
                 .toString();
               return (
-                <tr className="trTable" key={evento.id}>
-                  <td className="align-self-center align-middle">
-                    <small>{evento.concepto}</small>
-                    {
-                      (evento.isLive === true) ? (
-                        <span className="material-icons blink toRed">sensors</span>
-                      ) : (
-                        <></>
-                      )
-                    }
-                  </td>
-                  <td className="limit align-self-center">
-                    <p className="align-self-center">{evento.organizador}</p>
-                  </td>
-                  <td className="">
-                    <small className="align-self-center">{evento.ciudad}</small>
-                  </td>
-                  <td>
-                    <small>{formatedDate}</small>
-                  </td>
-                  <td>
-                    <Link
-                      className="btn btn-outline-light button"
-                      to={`/actuaciones/${evento.id}`}
-                    >
-                      Ir
-                    </Link>
-                  </td>
-                </tr>
+                <div
+                  className="trTable eachTR d-flex justify-content-between border-bottom"
+                  key={evento.id}
+                >
+                  <div className="d-sm-inline-block eachTD">
+                    {evento.isLive === true ? (
+                      <span className="material-icons blink toRed">
+                        sensors
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                    <p className="tdFromTable"><Link
+                        className="btn text-white button tdFromTable"
+                        to={`/actuaciones/${evento.id}`}
+                      >{evento.concepto}</Link></p>
+                  </div>
+                  <div className="d-sm-inline-block eachTD">
+                    <p className="align-self-center tdFromTable"><Link
+                        className="btn text-white button tdFromTable"
+                        to={`/actuaciones/${evento.id}`}
+                      >{evento.organizador}</Link></p>
+                  </div>
+                  <div className="d-sm-inline-block eachTD">
+                    <p className="align-self-center">
+                      <Link
+                        className="btn text-white button tdFromTable"
+                        to={`/actuaciones/${evento.id}`}
+                      >
+                        {evento.ciudad}
+                      </Link>
+                    </p>
+                  </div>
+                  <div className="d-sm-inline-block eachTD">
+                    <p className="tdFromTable">
+                      <Link
+                        className="btn text-white button tdFromTable"
+                        to={`/actuaciones/${evento.id}`}
+                      >
+                        {formatedDate}
+                      </Link>
+                    </p>
+                  </div>
+                </div>
               );
             })}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   );

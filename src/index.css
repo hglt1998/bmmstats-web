@@ -11,13 +11,12 @@
   text-shadow: none; /* Prevent inheritance from `body` */
 }
 
-.trTable:hover {
-  background-color: #ffffff;
-  color: black;
-}
-
 .blink {
   animation: blinker 2s linear infinite;
+}
+
+p {
+  font-family: 'Raleway', sans-serif;
 }
 
 @keyframes blinker {
@@ -28,17 +27,21 @@
 
 .scrolleable {
   overflow: auto;
-  max-height: 350px;
+  max-height: 25vh;
 }
 
 .scrolleableTBody {
   overflow: auto;
-  max-height: 700px;
+  max-height: 80vh;
   
 }
 
+.scrolleableAbout {
+  overflow: auto;
+  max-height: 80vh;
+}
+
 .limit {
-  height: 50px;
   word-wrap: break-word;
   font-size: x-small;
 }
@@ -53,25 +56,19 @@
   text-decoration: none;
   align-content: center;
   align-items: center;
+  margin: auto;
 }
 
 .trTableText {
   color: white;
   text-decoration: none;
-}
-.trTableText:hover {
-  color: #333;
+  margin: auto;
 }
 
 .cellContent {
   vertical-align: middle;
 }
 
-.button:hover {
-  color: black;
-  border-width: 1px;
-  border-color: #fff;
-}
 /*
  * Base structure
  */
@@ -101,6 +98,10 @@ td > a {
   height: 50px;
 }
 
+.back {
+  background-color: #1d2063;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -121,6 +122,33 @@ footer {
   display: table-row;
 }
 
+.tdFromTable {
+  font-size: 1.5vh;
+  vertical-align: middle;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin: auto;
+  white-space: normal;
+}
+.tableHeader {
+  font-size: 1.5vh;
+  vertical-align: middle;
+}
+
+.tbody {
+  max-height: max-content;
+}
+
+.eachTR {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.eachTD {
+  box-sizing: border-box;
+  width: 100%;
+  margin: auto;
+}
 
 /*
  * Header

@@ -1,7 +1,6 @@
-import React from 'react'
 export default function AboutPage() {
   return (
-    <div className="container">
+    <div className="container p-4 scrolleableAbout">
       <h1>Nace BMM STATS</h1>
       <p>
         BMM STATS es un proyecto de la{" "}
@@ -18,10 +17,10 @@ export default function AboutPage() {
       </p>
       <p>
         Para gestionar toda la información que se ofrece en esta web, nuestro equipo ha desarrolado una aplicación
-        móvil de administración con la que se actualizan los datos con tan sólo introducir 1 dato identificador.
+        móvil de administración con la que se actualizan los datos con tan sólo introducir 1 dato identificador de cada composición.
       </p>
       <p>
-        En fechas futuras, se podrá hacer búsquedas por actuaciones, composiciones o compositores.
+        En fechas futuras, se podrán hacer búsquedas por actuaciones, composiciones o compositores.
       </p>
       <p>
         #suenaMairena
