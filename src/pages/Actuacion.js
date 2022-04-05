@@ -74,23 +74,23 @@ export default function Actuacion() {
       {repertorios.length === 0 ? (
         <p>No hay datos</p>
         ) : (
-          <div className="border rounded container">
+          <div className="border rounded">
           {repertorios.map((repertorio) => {
             const time = repertorio.time
             return (
-              <div className="row align-items-center border" key={repertorio.idRepertorio}>
-                <div className="col align-middle bold"> {repertorio.tituloMarcha} </div>
-                <div className="col"><small>{repertorio.compositor}</small></div>
+              <div className="d-flex justify-content-around border p-2" key={repertorio.idRepertorio}>
+                <div className="d-sm-inline-block eachTD bold"> {repertorio.tituloMarcha} </div>
+                <div className="d-sm-inline-block eachTD"><small>{repertorio.compositor}</small></div>
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="col"><small>{repertorio.ubicacion}</small></div>
+                    <div className="d-sm-inline-block eachTD"><small>{repertorio.ubicacion}</small></div>
                   ) : (
                     <></>
                   )
                 }
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="col"><small>{time.substring(time.indexOf(",") + 2, time.length)}</small></div>
+                    <div className="d-sm-inline-block eachTD"><small>{time.substring(time.indexOf(",") + 2, time.length)}</small></div>
                   ) : (
                     <></>
                   )
