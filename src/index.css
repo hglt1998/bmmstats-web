@@ -1,240 +1,59 @@
 
-/*
- * Globals
- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
-/* Custom default button */
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-}
-
-.blink {
-  animation: blinker 2s linear infinite;
-}
-
-p {
-  font-family: 'Raleway', sans-serif;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
-
-.scrolleable {
-  overflow: auto;
-  max-height: 25vh;
-}
-
-.scrolleableTBody {
-  overflow: auto;
-  max-height: 80vh;
-  
-}
-
-/* .scrolleableTBody::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-	border-radius: 10px;
-}
-
-.scrolleableTBody::-webkit-scrollbar
-{
-	width: 10px;
-}
-
-.scrolleableTBody::-webkit-scrollbar-thumb
-{
-	border-radius: 2vh;
-	background-image: -webkit-gradient(linear,
-									   left bottom,
-									   left top,
-									   color-stop(0.44, rgb(122,153,217)),
-									   color-stop(0.72, rgb(73,125,189)),
-									   color-stop(0.86, rgb(28,58,148)));
-} */
-
-.scrolleableTBody::-webkit-scrollbar-track
-{
-	border: 1px solid black;
-	background-color: #F5F5F5;
-}
-
-.scrolleableTBody::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: #F5F5F5;
-}
-
-.scrolleableTBody::-webkit-scrollbar-thumb
-{
-	background-color: #000000;	
-}
-
-
-.scrolleableAbout {
-  overflow: auto;
-  max-height: 80vh;
-}
-
-.limit {
-  word-wrap: break-word;
-  font-size: x-small;
-}
-
-.toRed {
-  color: red;
-}
-
-.trTable {
-  vertical-align: middle;
-  color: #ffffff;
-  text-decoration: none;
-  align-content: center;
-  align-items: center;
-  margin: auto;
-}
-
-.trTableText {
-  color: white;
-  text-decoration: none;
-  margin: auto;
-}
-
-.cellContent {
-  vertical-align: middle;
-}
-
-/*
- * Base structure
- */
-
-body {
-  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
-}
-
-td > a {
-  color: #333;
-}
-
-.infoText {
-  left: 0;
-  font-size: small;
-  font-weight: 100;
-}
-
-.footer {
-  vertical-align: baseline;
-  position: absolute;
-  margin-top: auto;
-  bottom: 0;
+.subtext {
+  font-family: 'Inter', sans-serif;
+  color: #25292e;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: -0.017rem;
+  font-weight: 400;
   text-align: center;
-  min-height: 50px;
-  height: 50px;
 }
 
-.back {
-  background-color: #1d2063;
-}
-
-.bold {
-  font-weight: bold;
-}
-
-.navbarImage {
-    left: 0px;
-} 
-
-.cover-container {
-  max-width: 42em;
-}
-
-body > footer {
-  display: table-row;
-}
-
-footer {
-  display: table-row;
-}
-
-.tdFromTable {
-  font-size: 1.5vh;
-  vertical-align: middle;
-  padding-left: 1px;
-  padding-right: 1px;
-  margin: auto;
-  white-space: normal;
-}
-.tableHeader {
-  font-size: 1.5vh;
-  vertical-align: middle;
-}
-
-.tbody {
-  max-height: max-content;
-}
-
-.eachTR {
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.eachTD {
-  box-sizing: border-box;
-  width: 100%;
-  margin: auto;
-}
-
-/*
- * Header
- */
-
-.nav-masthead .nav-link {
-  padding: 0.25rem 0;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
-  background-color: transparent;
-  border-bottom: 0.25rem solid transparent;
-}
-
-.nav-masthead .nav-link:hover,
-.nav-masthead .nav-link:focus {
-  border-bottom-color: rgba(255, 255, 255, 0.25);
-}
-
-.nav-masthead .nav-link + .nav-link {
-  margin-left: 1rem;
-}
-
-.nav-masthead .active {
-  color: #fff;
-  border-bottom-color: #fff;
-}
-
-#mainButton :hover {
-  box-shadow: 0 4px 8px 0 rgb(255, 255, 255), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
+@media only screen and (max-width: 601px) {
+  .title {
+    font-size: 7vh;
   }
-
 }
 
+.main-content {
+  justify-content: center;
+  margin: 3vh;
+}
 
+.title {
+  font-family: 'Inter', sans-serif;
+  color: #25292e;
+  font-size: 4vh;
+  padding-bottom: 4vh;
+  padding-top: 10vh;
+  font-weight: 900;
+  text-align: center;
+}
 
+#mainButton {
+  text-decoration: none;
+  color: #25292e;
+  font-family: 'Inter', sans-serif;
+  padding: 1vh;
+  padding-right: 0.5vh;
+  border: 2px solid #25292e;
+  box-shadow: rgba(17, 17, 26, 0.1) 2px 2px 16px;
+  vertical-align: middle;
+}
+
+#mainButton:hover {
+  background-color: #25292e;
+  color: aliceblue;
+}
+
+.mainButton {
+  text-align: center;
+  padding: 3vh;
+}
+
+.chevron {
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
