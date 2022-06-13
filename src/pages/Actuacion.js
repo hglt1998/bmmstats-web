@@ -2,6 +2,7 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
+import './actuacion.css'
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -30,7 +31,7 @@ export default function Actuacion() {
       onValue(repertorioRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          setRepertorios(Object.values(data));
+          setRepertorios(Object.values(data).reverse());
         }
       });
     };
@@ -41,56 +42,50 @@ export default function Actuacion() {
   // <------------------------------- GETTERS ------------------------------->
 
   return (
-    <div className="container pb-5 scrolleableTBody">
-      <div className="infoHeader text-white">
+    <div className="container">
+      <div className="top-info">
         {
           actuacion.isLive ? (
-            <span className="badge bg-danger blink text-uppercase">En directo</span>
+            <span className="badge-alert">En directo</span>
           ) : (
-            <span className="badge bg-dark p-2 text-uppercase">Finalizado</span>
+            <span className="badge">Finalizado</span>
           )
         }
-        <h1 className="text-uppercase border rounded mt-3 p-2">{actuacion.concepto}</h1>
-        <div className="fs-6">
-          <h6 className="">{actuacion.tipo}</h6>
-          <p className="d-flex text-wrap fs-6"><span className="material-icons">
-            person
-            </span>{actuacion.organizador1}</p>
+        <h1 className="subject">{actuacion.concepto}</h1>
+        <p className="secondary-item">{actuacion.tipo}</p>
+        <div className="secondary-info">
+          <p className="secondary-item"><span className="material-icons secondary-item">person</span>{actuacion.organizador1}</p>
           {actuacion.organizador2 ? (
-            <p className="d-flex"><span className="material-icons">
-            person
-            </span>{actuacion.organizador2}</p>
-            
-          ) : (
-            <></>
-          )
+            <p className=""><span className="material-icons secondary-item">person</span>{actuacion.organizador2}</p>
+          ) : ( <></> )
           }
-          <p className="d-flex"><span className="material-icons">location_on</span>{actuacion.ubicacion}</p>
-          <p className="d-flex">{actuacion.ciudad}</p>
-          <p className="d-flex">{new Date(fecha.seconds * 1000).toLocaleString()}</p>
+          <p className="secondary-item"><span className="material-icons secondary-item">location_on</span>{actuacion.ubicacion}</p>
+          <p className="secondary-item">{actuacion.ciudad}</p>
+          <p className="secondary-item">{new Date(fecha.seconds * 1000).toLocaleString()}</p>
         </div>
 
       </div>
       {repertorios.length === 0 ? (
         <p>No hay datos</p>
         ) : (
-          <div className="border rounded">
+          <div className="table">
+          <p className="amount-info">Composiciones interpretadas: {repertorios.length}</p>
           {repertorios.map((repertorio) => {
             const time = repertorio.time
             return (
-              <div className="d-flex justify-content-around border p-2" key={repertorio.idRepertorio}>
-                <div className="d-sm-inline-block eachTD bold"> {repertorio.tituloMarcha} </div>
-                <div className="d-sm-inline-block eachTD"><small>{repertorio.compositor}</small></div>
+              <div className="table2-row" key={repertorio.idRepertorio}>
+                <div className="table-cell colum-1"> {repertorio.tituloMarcha}</div>
+                <div className="table-cell column-2">{repertorio.compositor}</div>
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="d-sm-inline-block eachTD"><small>{repertorio.ubicacion}</small></div>
+                    <div className="table-cell column-3">{repertorio.ubicacion}</div>
                   ) : (
                     <></>
                   )
                 }
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="d-sm-inline-block eachTD"><small>{time.substring(time.indexOf(",") + 2, time.length)}</small></div>
+                    <div className="table-cell column-4">{time.substring(time.indexOf(",") + 2, time.length)}</div>
                   ) : (
                     <></>
                   )
@@ -98,7 +93,6 @@ export default function Actuacion() {
               </div>
             );
           })}
-          <small className="font-monospace text-dark bg-light px-2">Composiciones interpretadas: {repertorios.length}</small>
         </div>
       )}
     </div>

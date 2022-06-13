@@ -1,0 +1,61 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+.badge {
+    background-color: #25292e;
+    padding: 5px;
+    color: azure;
+    border-radius: 5px;
+    margin: auto;
+}
+
+.badge-alert {
+    background-color: red;
+    padding: 5px;
+    color: azure;
+    border-radius: 5px;
+    animation: blinker 2s linear infinite;
+}
+
+.top-info {
+    justify-content: center;
+    text-align: center;
+    margin: 10px 0px;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.subject {
+    margin: 5px 0px 5px 0px;
+}
+
+.secondary-info {
+    vertical-align: middle;
+    justify-content: space-around;
+}
+
+.secondary-item {
+    vertical-align: middle;
+    margin: 5px 0px 0px 0px;
+}
+
+.table2-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    border: 1px solid #000000;
+    vertical-align: middle;
+    align-items: center;
+    height: 6vh;
+}
+
+.amount-info {
+    background-color: #25292e;
+    color: #FFFFFF;
+    text-align: center;
+}
