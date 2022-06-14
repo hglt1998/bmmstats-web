@@ -55,12 +55,6 @@ a {
     align-items: center;
 }
 
-.column-1 {
-    width: 20%;
-    text-align: center;
-    flex-direction: row;
-    flex-flow: row;
-}
 
 .blinker {
     vertical-align: middle;
@@ -68,11 +62,17 @@ a {
     animation: blinker 2s linear infinite;
 }
 
-
 @keyframes blinker {
     50% {
         opacity: 0;
     }
+}
+
+.column-1 {
+    width: 20%;
+    text-align: center;
+    flex-direction: row;
+    flex-flow: row;
 }
 
 .column-2 {

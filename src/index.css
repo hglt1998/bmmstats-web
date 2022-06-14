@@ -17,6 +17,14 @@
   }
 }
 
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 13vh;
+  height: 13vh;
+}
+
 .main-content {
   justify-content: center;
   margin: 3vh;
@@ -27,7 +35,7 @@
   color: #25292e;
   font-size: 4vh;
   padding-bottom: 4vh;
-  padding-top: 10vh;
+  padding-top: 2vh;
   font-weight: 900;
   text-align: center;
 }

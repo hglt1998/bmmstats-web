@@ -14,6 +14,8 @@ export default function Actuacion() {
 
   const [fecha, setFecha] = useState([]);
 
+  const [isListSelected, setIsListSelected] = useState(true);
+
   // <------------------------------- USE EFFECT ------------------------------->
 
   useEffect(() => {
@@ -70,29 +72,37 @@ export default function Actuacion() {
         ) : (
           <div className="table">
           <p className="amount-info">Composiciones interpretadas: {repertorios.length}</p>
-          {repertorios.map((repertorio) => {
+          {actuacion.tipo == 'Procesion con gps' ? (<div className="buttons-wrapper">
+            <button className={isListSelected ? "btn btn-active" : "btn btn-unactive"} onClick={() => setIsListSelected(true)}>LISTA</button>
+            <button className={isListSelected ? "btn btn-unactive" : "btn btn-active"} onClick={() => setIsListSelected(false)}>MAPA</button>
+          </div>) : (<></>)
+          }
+          
+          {isListSelected ? (repertorios.map((repertorio) => {
             const time = repertorio.time
             return (
               <div className="table2-row" key={repertorio.idRepertorio}>
-                <div className="table-cell colum-1"> {repertorio.tituloMarcha}</div>
-                <div className="table-cell column-2">{repertorio.compositor}</div>
+                <div className="table2-cell column2-1"><p className="item2-text">{repertorio.tituloMarcha}</p></div>
+                <div className="table2-cell column2-2"><p className="item2-text">{repertorio.compositor}</p></div>
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="table-cell column-3">{repertorio.ubicacion}</div>
+                    <div className="table2-cell column2-3"><p className="item2-text">{repertorio.ubicacion}</p></div>
                   ) : (
                     <></>
                   )
                 }
                 {
                   (actuacion.tipo != 'Concierto' && actuacion.tipo != 'Pregón') ? (
-                    <div className="table-cell column-4">{time.substring(time.indexOf(",") + 2, time.length)}</div>
+                    <div className="table2-cell column2-4"><p className="item2-text">{time.substring(time.indexOf(",") + 2, time.length)}</p></div>
                   ) : (
-                    <></>
+                    <div className="map-wrapper"></div>
                   )
                 }
               </div>
             );
-          })}
+          })) : (
+          <div></div>
+          )}
         </div>
       )}
     </div>

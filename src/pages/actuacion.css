@@ -52,10 +52,99 @@
     vertical-align: middle;
     align-items: center;
     height: 6vh;
+    padding: 0.5vh;
 }
 
 .amount-info {
     background-color: #25292e;
     color: #FFFFFF;
     text-align: center;
+    padding: 0.5vh;
+}
+
+.column2-1 {
+    width: 25%;
+}
+
+.column2-2 {
+    width: 35%;
+}
+
+.column2-3 {
+    width: 25%;
+}
+
+.column2-4 {
+    width: 15%;
+}
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 2vh 0vh;
+}
+
+.btn {
+    padding: 1vh;
+    width: 30%;
+}
+
+.btn-active {
+    background-color: #25292e;
+    color: #FFFFFF;
+}
+
+.btn-unactive {
+    background-color: #FFFFFF;
+    color: #25292e;
+    border-width: 1px;
+    border-color: #25292e;
+}
+
+@media only screen and (max-width: 1300px) {
+    .item2-text {
+        font-size: 1.5vh;
+    }
+
+    .header-text {
+        font-size: 1.5vh;
+    }
+
+    .main-title {
+        font-size: 4vh;
+    }
+
+    .info-text {
+        font-size: 1.5vh;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .item2-text {
+        font-size: 1.4vh;
+    }
+
+    .header-text {
+        font-size: 1.2vh;
+    }
+
+    .table2-cell {
+        line-height: 1;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+
+    .table2-cell {
+        line-height: 0.6;
+        font-size: 0.2vw;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+
+    .table2-cell {
+        line-height: 1;
+        font-size: 0.1vw;
+    }
 }
