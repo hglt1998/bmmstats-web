@@ -41,6 +41,8 @@
 .secondary-item {
     vertical-align: middle;
     margin: 5px 0px 0px 0px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .table2-row {

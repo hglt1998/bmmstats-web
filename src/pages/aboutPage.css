@@ -1,0 +1,18 @@
+.container {
+    justify-content: center;
+    align-items: center;
+}
+
+.about-title {
+    text-align: center;
+    margin-bottom: 5vh;
+}
+
+p {
+    padding: 1vh 0vh;
+    text-align: center;
+}
+
+.quote {
+    padding: 5vh 0vh;
+}
