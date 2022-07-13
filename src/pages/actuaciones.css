@@ -87,10 +87,18 @@ a {
     width: 15%;
 }
 
+.item-text {
+    font-size: 1rem;
+}
+
+.header-text {
+    font-size: 1rem;
+}
+
 @media only screen and (max-width: 1300px) {
-    .item-text {
-        font-size: 1.5vh;
-    }
+    /* .item-text {
+        font-size: 1.5rem;
+    } */
 
     .header-text {
         font-size: 1.5vh;
@@ -106,8 +114,22 @@ a {
 }
 
 @media only screen and (max-width: 900px) {
-    .item-text {
+    /* .item-text {
         font-size: 1.3vh;
+    } */
+
+    .header-text {
+        font-size: 1.2vh;
+    }
+
+    .table-cell {
+        line-height: 0.8;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .item-text {
+        font-size: 0.7rem;
     }
 
     .header-text {
@@ -119,9 +141,9 @@ a {
     }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 380px) {
     .item-text {
-        font-size: 1vh;
+        font-size: 0.5rem;
     }
 
     .header-text {
@@ -134,20 +156,33 @@ a {
 }
 
 .loader {
-    background-color: #000000cc;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
-    z-index: 1000;
-    overflow: hidden;
     left: 0;
-    right: 0;
     top: 0;
-    bottom: 0;
 }
 
-.loader-image {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    border-left-color: #09f;
+  
+    animation: spin 1s ease infinite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+    margin-bottom: 1vh;
 }
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

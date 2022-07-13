@@ -41,64 +41,46 @@ export default function Actuacion() {
 
     getActuacionById(id);
     loadData(id);
-    deleteLoadingAnimation();
   }, []);
 
-  const deleteLoadingAnimation = () => {
-    setTimeout(() => {
-      document.getElementsByClassName("loader")[0].remove();
-    }, 1000);
-  };
   // <------------------------------- GETTERS ------------------------------->
 
   return (
     <div className="container">
-      <div className="loader">
-        <img
-          src={logo}
-          className="loader-image blinker"
-          alt="logo"
-          width="20%"
-        />
-        <div className="lds-ripple">
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-      <div className="top-info">
-        {actuacion.isLive ? (
-          <span className="badge-alert">En directo</span>
-        ) : (
-          <span className="badge">Finalizado</span>
-        )}
-        <h1 className="subject">{actuacion.concepto}</h1>
-        <p className="secondary-item">{actuacion.tipo}</p>
-        <div className="secondary-info">
-          <p className="secondary-item">
-            <span className="material-icons secondary-item">person</span>
-            {actuacion.organizador1}
-          </p>
-          {actuacion.organizador2 ? (
+      {repertorios.length === 0 || actuacion.concepto == null ? (
+        <div className="spinner"></div>
+      ) : (<>
+        <div className="top-info">
+          {actuacion.isLive ? (
+            <span className="badge-alert">En directo</span>
+          ) : (
+            <span className="badge">Finalizado</span>
+          )}
+          <h1 className="subject">{actuacion.concepto}</h1>
+          <p className="secondary-item">{actuacion.tipo}</p>
+          <div className="secondary-info">
             <p className="secondary-item">
               <span className="material-icons secondary-item">person</span>
-              {actuacion.organizador2}
+              {actuacion.organizador1}
             </p>
-          ) : (
-            <></>
-          )}
-          <p className="secondary-item">
-            <span className="material-icons secondary-item">location_on</span>
-            {actuacion.ubicacion}
-          </p>
-          <p className="secondary-item">{actuacion.ciudad}</p>
-          <p className="secondary-item">
-            {new Date(fecha.seconds * 1000).toLocaleString()}
-          </p>
+            {actuacion.organizador2 ? (
+              <p className="secondary-item">
+                <span className="material-icons secondary-item">person</span>
+                {actuacion.organizador2}
+              </p>
+            ) : (
+              <></>
+            )}
+            <p className="secondary-item">
+              <span className="material-icons secondary-item">location_on</span>
+              {actuacion.ubicacion}
+            </p>
+            <p className="secondary-item">{actuacion.ciudad}</p>
+            <p className="secondary-item">
+              {new Date(fecha.seconds * 1000).toLocaleString()}
+            </p>
+          </div>
         </div>
-      </div>
-      {repertorios.length === 0 ? (
-        <p>No hay datos</p>
-      ) : (
         <div className="table">
           <p className="amount-info">
             Composiciones interpretadas: {repertorios.length}
@@ -138,7 +120,7 @@ export default function Actuacion() {
                     <p className="item2-text">{repertorio.compositor}</p>
                   </div>
                   {actuacion.tipo != "Concierto" &&
-                  actuacion.tipo != "Pregón" ? (
+                    actuacion.tipo != "Pregón" ? (
                     <div className="table2-cell column2-3">
                       <p className="item2-text">{repertorio.ubicacion}</p>
                     </div>
@@ -146,7 +128,7 @@ export default function Actuacion() {
                     <></>
                   )}
                   {actuacion.tipo != "Concierto" &&
-                  actuacion.tipo != "Pregón" ? (
+                    actuacion.tipo != "Pregón" ? (
                     <div className="table2-cell column2-4">
                       <p className="item2-text">
                         {time.substring(time.indexOf(",") + 2, time.length)}
@@ -162,6 +144,7 @@ export default function Actuacion() {
             <div></div>
           )}
         </div>
+      </>
       )}
     </div>
   );
