@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import firebase from "../database/firebase";
 import { Link } from "react-router-dom";
 import "./actuaciones.css";
-import logo from "../static/Sinfondo.png";
 
 export default function Actuaciones() {
   const [events, setEvents] = useState([]);
+  const [visibleEvents, setVisibleEvents] = useState([]);
+  const [lastVisible, setLastVisible] = useState();
+  const paginationSize = 15;
 
   const loadData = () => {
     firebase.db
       .collection("actuaciones")
-      .orderBy("fecha", "desc")
+      .orderBy("fecha", "desc").limit(15)
       .get()
       .then((querySnapshot) => {
         const events = [];
@@ -28,17 +30,52 @@ export default function Actuaciones() {
             isLive: info.isLive,
           });
         });
-        setEvents(events);
+        setVisibleEvents(events);
+        setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1])
       });
+
   };
 
+  const loadNextData = () => {
+    firebase.db.collection("actuaciones").orderBy("fecha", "desc").startAfter(lastVisible).limit(15).get().then((querySnapshot) => {
+      const events = [];
+
+      if (querySnapshot.docs.length != 0) {
+        
+        querySnapshot.forEach((doc) => {
+          const info = doc.data();
+          
+          events.push({
+            id: info.idActuacion,
+            concepto: info.concepto,
+            organizador: info.organizador1,
+            fecha: info.fecha,
+            ciudad: info.ciudad,
+            tipo: info.tipo,
+            isLive: info.isLive,
+          });
+        });
+        setVisibleEvents(events);
+        setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1])
+      }
+    })
+  }
+
+  const loadAllEvents = () => {
+    firebase.db.collection("actuaciones").get().then((querySnapshot) => {
+      setEvents(querySnapshot.docs)
+    })
+  }
+
   useEffect(() => {
+    loadAllEvents();
     loadData();
+    // console.log(Math.ceil(events.length / pagination));
   }, []);
 
   return (
     <div className="container">
-      {events.length === 0 ? (
+      {visibleEvents.length === 0 ? (
       <div className="loader">
         <div className="spinner"></div>
       </div>
@@ -68,7 +105,7 @@ export default function Actuaciones() {
                 </div>
               </div>
               <div className="table-wrapper">
-                {events.map((evento) => {
+                {visibleEvents.map((evento) => {
                   const formatedDate = new Date(evento.fecha.seconds * 1000)
                     .toLocaleString()
                     .toString();
@@ -114,6 +151,16 @@ export default function Actuaciones() {
                     </div>
                   );
                 })}
+              </div>
+              <div className="navigation">
+                <button className="navigation-button" onClick={
+                  loadData
+                }>
+                 <span className="material-icons to-white">navigate_before</span>
+                </button>
+                <button className="navigation-button" onClick={loadNextData}>
+                 <span className="material-icons to-white">navigate_next</span>
+                </button>
               </div>
             </div>
           </div>

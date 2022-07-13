@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.e82269a7.css",
-    "main.js": "/static/js/main.b3236ef0.js",
+    "main.css": "/static/css/main.a722caed.css",
+    "main.js": "/static/js/main.d9507c14.js",
     "static/media/Sinfondo.png": "/static/media/Sinfondo.264b50df3c3a708d314a.png",
+    "static/media/LogoSuenaMairenaBlancoIsolated.png": "/static/media/LogoSuenaMairenaBlancoIsolated.341910c471f78f946f0f.png",
     "static/media/banner.png": "/static/media/banner.d1068db869b4b87d697b.png",
     "index.html": "/index.html",
-    "main.e82269a7.css.map": "/static/css/main.e82269a7.css.map",
-    "main.b3236ef0.js.map": "/static/js/main.b3236ef0.js.map"
+    "main.a722caed.css.map": "/static/css/main.a722caed.css.map",
+    "main.d9507c14.js.map": "/static/js/main.d9507c14.js.map"
   },
   "entrypoints": [
-    "static/css/main.e82269a7.css",
-    "static/js/main.b3236ef0.js"
+    "static/css/main.a722caed.css",
+    "static/js/main.d9507c14.js"
   ]
 }
