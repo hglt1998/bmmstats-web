@@ -15,8 +15,6 @@ export default function Actuacion() {
 
   const [fecha, setFecha] = useState([]);
 
-  const [isListSelected, setIsListSelected] = useState(true);
-
   // <------------------------------- USE EFFECT ------------------------------->
 
   useEffect(() => {
@@ -42,11 +40,13 @@ export default function Actuacion() {
     getActuacionById(id);
     loadData(id);
     deleteLoadingAnimation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deleteLoadingAnimation = () => {
+    const loader = document.getElementsByClassName("loader")[0];
     setTimeout(() => {
-      document.getElementsByClassName("loader")[0].remove();
+      if (loader) loader.remove();
     }, 1000);
   };
   // <------------------------------- GETTERS ------------------------------->
@@ -72,7 +72,7 @@ export default function Actuacion() {
           <span className="badge">Finalizado</span>
         )}
         <h1 className="subject">{actuacion.concepto}</h1>
-        <p className="secondary-item">{actuacion.tipo}</p>
+        <p className="secondary-item"><strong>{actuacion.tipo}</strong></p>
         <div className="secondary-info">
           <p className="secondary-item">
             <span className="material-icons secondary-item">person</span>
@@ -87,12 +87,16 @@ export default function Actuacion() {
             <></>
           )}
           <p className="secondary-item">
-            <span className="material-icons secondary-item">location_on</span>
+            <span className="material-icons secondary-item">location_city</span>
             {actuacion.ubicacion}
           </p>
-          <p className="secondary-item">{actuacion.ciudad}</p>
           <p className="secondary-item">
-            {new Date(fecha.seconds * 1000).toLocaleString()}
+            <span className="material-icons secondary-item">location_on</span>
+            {actuacion.ciudad}
+          </p>
+          <p className="secondary-item">
+          <span className="material-icons secondary-item">schedule</span>
+            {new Date(fecha.seconds * 1000).toLocaleString().slice(0, -3)} h
           </p>
         </div>
       </div>
@@ -101,52 +105,34 @@ export default function Actuacion() {
       ) : (
         <div className="table">
           <p className="amount-info">
-            Composiciones interpretadas: {repertorios.length}
+            <small>Composiciones interpretadas:</small> {repertorios.length}
           </p>
-          {actuacion.tipo == "Procesion con gps" ? (
-            <div className="buttons-wrapper">
-              <button
-                className={
-                  isListSelected ? "btn btn-active" : "btn btn-unactive"
-                }
-                onClick={() => setIsListSelected(true)}
-              >
-                LISTA
-              </button>
-              <button
-                className={
-                  isListSelected ? "btn btn-unactive" : "btn btn-active"
-                }
-                onClick={() => setIsListSelected(false)}
-              >
-                MAPA
-              </button>
-            </div>
-          ) : (
-            <></>
-          )}
-
-          {isListSelected ? (
-            repertorios.map((repertorio) => {
+          {actuacion.tipo != "Pregón" ? (
+            <p className="average-info">
+            <small>Media marchas/hora:</small> {(repertorios.length / ((new Date(repertorios[0].time).getTime() - new Date(repertorios[repertorios.length - 1].time).getTime()) / 3600000)).toFixed(2)}
+          </p>
+          ): (<></>) }
+          
+          {repertorios.map((repertorio) => {
               const time = repertorio.time;
               return (
                 <div className="table2-row" key={repertorio.idRepertorio}>
                   <div className="table2-cell column2-1">
-                    <p className="item2-text">{repertorio.tituloMarcha}</p>
+                    <p className="item2-text"><b>{repertorio.tituloMarcha}</b></p>
                   </div>
                   <div className="table2-cell column2-2">
                     <p className="item2-text">{repertorio.compositor}</p>
                   </div>
-                  {actuacion.tipo != "Concierto" &&
-                  actuacion.tipo != "Pregón" ? (
+                  {actuacion.tipo !== "Concierto" &&
+                  actuacion.tipo !== "Pregón" ? (
                     <div className="table2-cell column2-3">
                       <p className="item2-text">{repertorio.ubicacion}</p>
                     </div>
                   ) : (
                     <></>
                   )}
-                  {actuacion.tipo != "Concierto" &&
-                  actuacion.tipo != "Pregón" ? (
+                  {actuacion.tipo !== "Concierto" &&
+                  actuacion.tipo !== "Pregón" ? (
                     <div className="table2-cell column2-4">
                       <p className="item2-text">
                         {time.substring(time.indexOf(",") + 2, time.length)}
@@ -158,9 +144,7 @@ export default function Actuacion() {
                 </div>
               );
             })
-          ) : (
-            <div></div>
-          )}
+          }
         </div>
       )}
     </div>

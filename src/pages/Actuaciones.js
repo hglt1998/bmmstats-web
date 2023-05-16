@@ -29,18 +29,17 @@ export default function Actuaciones() {
           });
         });
         setEvents(events);
+        deleteLoadingAnimation()
       });
   };
 
   const deleteLoadingAnimation = () => {
-    setTimeout(() => {
-      document.getElementsByClassName("loader")[0].remove();
-    }, 1000);
+    const loader = document.getElementsByClassName("loader")[0];
+    if (loader) loader.remove();
   };
 
   useEffect(() => {
     loadData();
-    deleteLoadingAnimation();
   }, []);
 
   return (
@@ -82,9 +81,10 @@ export default function Actuaciones() {
           </div>
           <div className="table-wrapper">
             {events.map((evento) => {
-              const formatedDate = new Date(evento.fecha.seconds * 1000)
+              var formatedDate = new Date(evento.fecha.seconds * 1000)
                 .toLocaleString()
                 .toString();
+                formatedDate = formatedDate.substring(0, formatedDate.length - 3)
               return (
                 <div className="table-row" key={evento.id}>
                   <div className="table-cell column-1">
@@ -121,7 +121,7 @@ export default function Actuaciones() {
                       className="item-text"
                       to={`/actuaciones/${evento.id}`}
                     >
-                      {formatedDate}
+                      {formatedDate} h
                     </Link>
                   </div>
                 </div>

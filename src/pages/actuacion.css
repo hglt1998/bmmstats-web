@@ -62,14 +62,23 @@
     color: #FFFFFF;
     text-align: center;
     padding: 0.5vh;
+    margin-bottom: 1px;
+}
+
+.average-info {
+    background-color: #25292e;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0.5vh;
+    margin-top: 0px;
 }
 
 .column2-1 {
-    width: 25%;
+    width: 30%;
 }
 
 .column2-2 {
-    width: 35%;
+    width: 15%;
 }
 
 .column2-3 {
