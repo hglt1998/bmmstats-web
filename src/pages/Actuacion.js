@@ -40,6 +40,9 @@ export default function Actuacion() {
     getActuacionById(id);
     loadData(id);
     deleteLoadingAnimation();
+    setTimeout(() => {
+      diffHours()
+    }, 3000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -49,6 +52,40 @@ export default function Actuacion() {
       if (loader) loader.remove();
     }, 1000);
   };
+
+  const diffHours = () => {
+    const toDateParts = repertorios[0].time?.split(", ")[0].split("/");
+    const toTimeParts = repertorios[0].time?.split(", ")[1].split(":");
+
+    var toDate = new Date(toDateParts[2], toDateParts[1] - 1, toDateParts[0], toTimeParts[0], toTimeParts[1], toTimeParts[2]).getTime()
+
+    const fromDateParts = repertorios[repertorios.length - 1].time?.split(", ")[0].split("/");
+    const fromTimeParts = repertorios[repertorios.length - 1].time?.split(", ")[1].split(":");
+
+    var fromDate = new Date(fromDateParts[2], fromDateParts[1] - 1, fromDateParts[0], fromTimeParts[0], fromTimeParts[1], fromTimeParts[2]).getTime()
+
+    const DATE_UNITS = { // in seconds
+      year: 31536000,
+      month: 2629800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1
+    }
+    
+    const languageCode = 'es' // English
+
+    const rtf = new Intl.NumberFormat(languageCode, {numeric: "auto"})
+
+    const elapsed = (fromDate - toDate) / 1000
+
+    for (const unit in DATE_UNITS) {
+      if (Math.abs(elapsed) > DATE_UNITS[unit]) {
+        return rtf.format(Math.floor(elapsed / DATE_UNITS[unit]), unit)
+      }
+    }
+    return rtf.format(0, "second")
+  }  
   // <------------------------------- GETTERS ------------------------------->
 
   return (
@@ -107,16 +144,22 @@ export default function Actuacion() {
           <p className="amount-info">
             <small>Composiciones interpretadas:</small> {repertorios.length}
           </p>
-          {actuacion.tipo != "Pregón" ? (
-            <p className="average-info">
-            <small>Media marchas/hora:</small> {(repertorios.length / ((new Date(repertorios[0].time).getTime() - new Date(repertorios[repertorios.length - 1].time).getTime()) / 3600000)).toFixed(2)}
-          </p>
+          {actuacion.tipo !== "Pregón" ? (
+            <>
+              <p className="average-info">
+                <small>Media marchas/hora:</small> {repertorios.length / diffHours() * -1}
+              </p>
+              <div className="content">
+                <p className="enlazadas-info"></p><p className="enlazadas-label">Enlazadas</p>
+              </div>
+            </>
           ): (<></>) }
+          
           
           {repertorios.map((repertorio) => {
               const time = repertorio.time;
               return (
-                <div className="table2-row" key={repertorio.idRepertorio}>
+                <div className={repertorio.enlazada % 2 === 0 ? "table2-row-enlazada" : "table2-row"} key={repertorio.idRepertorio}>
                   <div className="table2-cell column2-1">
                     <p className="item2-text"><b>{repertorio.tituloMarcha}</b></p>
                   </div>
