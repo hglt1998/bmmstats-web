@@ -48,7 +48,7 @@ export default function Actuaciones() {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [events]);
 
   return (
     <div className={classes.container}>
