@@ -9,7 +9,7 @@ a {
 }
 
 .container {
-    margin: 1vh;
+    padding: 2vh;
 }
 
 .main-title {
@@ -18,12 +18,6 @@ a {
 
 .info-text {
     text-align: center;
-}
-
-.customTable {
-    width: 95%;
-    display: block;
-    overflow-x: auto;
 }
 
 
@@ -91,6 +85,52 @@ a {
 
 .column-4 {
     width: 15%;
+}
+
+@media only screen and (max-width: 1300px) {
+    .item-text {
+        font-size: 1.5vh;
+    }
+
+    .header-text {
+        font-size: 1.5vh;
+    }
+
+    .main-title {
+        font-size: 4vh;
+    }
+
+    .info-text {
+        font-size: 1.5vh;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .item-text {
+        font-size: 1.3vh;
+    }
+
+    .header-text {
+        font-size: 1.2vh;
+    }
+
+    .table-cell {
+        line-height: 0.8;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .item-text {
+        font-size: 1vh;
+    }
+
+    .header-text {
+        font-size: 1vh;
+    }
+
+    .table-cell {
+        line-height: 0.6;
+    }
 }
 
 .loader {

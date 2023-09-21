@@ -16,10 +16,6 @@
   margin-left: 1rem;
 }
 
-.nav-masthead {
-  display: flex;
-}
-
 .nav-masthead .active {
   color: #011936;
   border-bottom-color: #011936;
@@ -30,7 +26,6 @@
   flex-direction: row;
   justify-content: space-around;
   margin-top: 3vh;
-  align-items: center;
 }
 
 @media only screen and (max-width: 600px) {
