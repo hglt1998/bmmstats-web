@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
-import logo from '../static/Sinfondo.png';
+import logo from '../static/SinfondoP.webp';
 import "../index.css";
 
 export default function HomePage() {

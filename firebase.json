@@ -8,7 +8,7 @@
     ],
     "appAssociation": "AUTO",
     "rewrites": [{
-      "source": "/actuaciones/**",
+      "source": "/**",
       "dynamicLinks": true
     },
     {

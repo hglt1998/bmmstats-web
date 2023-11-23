@@ -1,0 +1,89 @@
+@use "_colors";
+@use "sass:color";
+
+* {
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+}
+
+a {
+    color: #000000;
+    font-size: 2vh;
+}
+
+.container {
+    padding: 2vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+.blinker {
+    vertical-align: middle;
+    color: red;
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+
+    tr:hover {
+        z-index: 5å;
+        cursor: pointer;
+    }
+
+    tr {
+        z-index: 1;
+        height: 5vh;
+        text-align: center;
+    }
+
+    tr:nth-child(odd) {
+        background-color: lightgrey;
+        z-index: 1;
+    }
+
+    td {
+        font-size: 1em;
+    }
+    
+}
+
+@media only screen and (max-width: 1250px) {
+    table {
+        td {
+            font-size: 0.8em;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .main-title {
+
+        h1{
+            font-size: 1.5em;
+        }
+
+    }
+    table {
+        th {
+            font-size: 0.8em;
+        }
+        td {
+            font-size: 0.5em;
+        }
+    }
+}
+
+
+
