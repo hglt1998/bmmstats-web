@@ -7,13 +7,11 @@
       "**/node_modules/**"
     ],
     "appAssociation": "AUTO",
-    "rewrites": [{
-      "source": "/**",
-      "dynamicLinks": true
-    },
-    {
-      "source": "!/actuaciones/**",
-      "destination": "estadisticas.municipaldemairena.com"
-    }]
+    "rewrites": [
+      {
+        "source": "/actuaciones/**",
+        "dynamicLinks": true
+      }
+    ]
   }
 }

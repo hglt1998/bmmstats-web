@@ -6,19 +6,16 @@ import { Box, CircularProgress } from "@mui/material";
 
 export default function Actuaciones() {
   const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const loadData = () => {
-    setIsLoading(true);
 
     try {
       firebase.db
         .collection("actuaciones")
         .orderBy("fecha", "desc")
-        .get()
-        .then((querySnapshot) => {
+        .onSnapshot((querySnapshot) => {
           const events = [];
 
           querySnapshot.forEach((doc) => {
@@ -37,9 +34,7 @@ export default function Actuaciones() {
           setEvents(events);
         });
     } catch (error) {
-      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleClick = (id) => {
@@ -60,7 +55,7 @@ export default function Actuaciones() {
             <h1>Actuaciones</h1>
             <p>
               Actualmente hay <b>{events.length}</b> eventos en nuestra base de
-              datos
+              datos{events.some((event) => event.isLive == true) ? <span className='liveIndicator'> y 1 actuación en directo</span> : ''}
             </p>
           </div>
           <div>
@@ -82,7 +77,10 @@ export default function Actuaciones() {
                     formatedDate.length - 3
                   );
                   return (
-                    <tr onClick={() => handleClick(evento.id)}>
+                    <tr
+                      className={evento.isLive ? "isLive" : ""}
+                      onClick={() => handleClick(evento.id)}
+                    >
                       <td>{index + 1}</td>
                       <td>{evento.concepto}</td>
                       <td>{evento.organizador}</td>

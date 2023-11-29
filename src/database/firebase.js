@@ -20,8 +20,10 @@ const app = firebase.initializeApp(firebaseConfig);
 const database = getDatabase(app)
 
 const db = firebase.firestore();
-export default {
+
+const schema = {
     firebase,
     db,
     database
 }
+export default schema

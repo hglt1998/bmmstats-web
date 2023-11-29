@@ -26,9 +26,25 @@ h1 {
     animation: blinker 2s linear infinite;
 }
 
+.liveIndicator {
+    color: red;
+    animation: blinkerText 2s linear infinite;
+}
+
 @keyframes blinker {
     50% {
-        opacity: 0;
+        background-color: rgba(255, 0, 0, 0.317);
+    }
+}
+@keyframes blinkerText {
+    50% {
+        color: red;
+    }
+    0% {
+        color: #000000;
+    }
+    100% {
+        color: #000000;
     }
 }
 
@@ -46,6 +62,10 @@ table {
         z-index: 1;
         height: 5vh;
         text-align: center;
+    }
+
+    tr.isLive {
+        animation: blinker 2s linear infinite;
     }
 
     tr:nth-child(odd) {

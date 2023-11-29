@@ -26,3 +26,6 @@ yarn-error.log*
 public/
 public
 *.gitignore
+public/*
+firebase.json
+.firebase

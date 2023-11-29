@@ -2,7 +2,6 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
-import logo from "../static/LogoSuenaMairenaBlancoIsolated.png";
 import "./actuacion.css";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -21,7 +20,7 @@ export default function Actuacion() {
   useEffect(() => {
     const getActuacionById = async (id) => {
       const doc = Firebase.db.collection("actuaciones").doc(id);
-      doc.get().then((info) => {
+      doc.onSnapshot((info) => {
         const actuacion = info.data();
         setActuacion(actuacion);
         setFecha(actuacion.fecha);
