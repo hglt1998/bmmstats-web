@@ -172,7 +172,7 @@ export default function Actuacion() {
                 <></>
               )}
 
-              {repertorios.map((repertorio) => {
+              {repertorios.map((repertorio, index) => {
                 const time = repertorio.time;
                 return (
                   <div
@@ -184,9 +184,14 @@ export default function Actuacion() {
                     key={repertorio.idRepertorio}
                   >
                     <div className="table2-cell column2-1">
-                      <p className="item2-text">
-                        <b>{repertorio.tituloMarcha}</b>
+                      <p className="item2-text index">
+                        <b>{repertorios.length - index}</b>
                       </p>
+                      <div className="secondDiv">
+                        <p className="item2-text">
+                          <b>{repertorio.tituloMarcha}</b>
+                        </p>
+                      </div>
                     </div>
                     <div className="table2-cell column2-2">
                       <p className="item2-text">{repertorio.compositor}</p>

@@ -110,6 +110,17 @@
 
 .column2-1 {
     width: 30%;
+    display: flex;
+}
+
+.secondDiv {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.index {
+    padding-right: 5vh;
 }
 
 .column2-2 {
@@ -150,6 +161,7 @@
 @media only screen and (max-width: 1300px) {
     .item2-text {
         font-size: 1.5vh;
+        margin: auto;
     }
 
     .header-text {
@@ -162,6 +174,11 @@
 
     .info-text {
         font-size: 1.5vh;
+    }
+
+    .index {
+        padding-right: 1vh;
+        vertical-align: middle;
     }
 }
 
