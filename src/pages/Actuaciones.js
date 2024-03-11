@@ -29,6 +29,7 @@ export default function Actuaciones() {
               ciudad: info.ciudad,
               tipo: info.tipo,
               isLive: info.isLive,
+              tagActuacion: info.tagActuacion
             });
           });
           setEvents(events);
@@ -48,14 +49,21 @@ export default function Actuaciones() {
   return (
     <div className={classes.container}>
       {events.length < 1 ? (
-      <Box sx={{ display: "flex", justifyContent: "center", py: '20%' }}>
+        <Box sx={{ display: "flex", justifyContent: "center", py: "20%" }}>
           <CircularProgress size={200} />
-        </Box>) : (<>
-          <div className={classes['main-title']}>
-            <h1>Actuaciones</h1>
-            <p>
+        </Box>
+      ) : (
+        <>
+          <div className={classes["main-title"]}>
+            <h2>Actuaciones</h2>
+            <p className="font-sans">
               Actualmente hay <b>{events.length}</b> eventos en nuestra base de
-              datos{events.some((event) => event.isLive == true) ? <span className='liveIndicator'> y 1 actuación en directo</span> : ''}
+              datos
+              {events.some((event) => event.isLive === true) ? (
+                <span className="liveIndicator"> y 1 actuación en directo</span>
+              ) : (
+                ""
+              )}
             </p>
           </div>
           <div>
@@ -78,8 +86,14 @@ export default function Actuaciones() {
                   );
                   return (
                     <tr
-                      className={evento.isLive ? "isLive" : ""}
+                      id="row"
+                      className={
+                        evento.isLive
+                          ? "isLive liveIndicator"
+                          : "" + evento.tagActuacion?.replace(/\s/g, "")
+                      }
                       onClick={() => handleClick(evento.id)}
+                      key={index}
                     >
                       <td>{index + 1}</td>
                       <td>{evento.concepto}</td>
@@ -92,7 +106,8 @@ export default function Actuaciones() {
               </tbody>
             </table>
           </div>
-        </>)}
+        </>
+      )}
     </div>
   );
 }

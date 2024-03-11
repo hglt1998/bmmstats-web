@@ -11,12 +11,18 @@ a {
     font-size: 2vh;
 }
 
+p {
+    padding: 0px;
+    margin: 0px;
+}
+
 .container {
     padding: 2vh;
 }
 
-h1 {
+h2 {
     text-align: center;
+    margin-top: 1vh;
 }
 
 
@@ -31,9 +37,44 @@ h1 {
     animation: blinkerText 2s linear infinite;
 }
 
+tr#row {
+    margin: 0px 5px;
+}
+
+#row.SemanaSanta {
+    color: #450045;
+    background-color: #80008030;
+}
+#row.SemanaSanta:nth-child(odd) {
+    color: #450045;
+    background-color: #80008015;
+}
+
+#row.Glorias {
+    background-color: #add8e640;
+}
+#row.Glorias:nth-child(odd) {
+    background-color: #add8e690;
+}
+#row.ProcesiónExtraordinaria {
+    background-color: #008080;
+    color: white;
+    border: white .5px solid;
+}
+#row.ProcesiónExtraordinaria:nth-child(odd) {
+    background-color: teal;
+    color: white;
+}
+
 @keyframes blinker {
     50% {
         background-color: rgba(255, 0, 0, 0.317);
+    }
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: white;
     }
 }
 @keyframes blinkerText {
@@ -60,12 +101,14 @@ table {
 
     tr {
         z-index: 1;
-        height: 5vh;
+        height: 4.4vh;
         text-align: center;
     }
 
     tr.isLive {
         animation: blinker 2s linear infinite;
+        background-color: wheat;
+        color: red;
     }
 
     tr:nth-child(odd) {
@@ -75,6 +118,7 @@ table {
 
     td {
         font-size: 1em;
+        padding: 0px 5px;
     }
     
 }

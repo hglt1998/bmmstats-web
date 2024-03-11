@@ -41,7 +41,7 @@ export default function Actuacion() {
     loadData(id);
     setTimeout(() => {
       diffHours();
-    }, 3000);
+    }, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,7 +92,7 @@ export default function Actuacion() {
 
     for (const unit in DATE_UNITS) {
       if (Math.abs(elapsed) > DATE_UNITS[unit]) {
-        return rtf.format(Math.floor(elapsed / DATE_UNITS[unit]), unit);
+        return rtf.format(Math.round(elapsed / DATE_UNITS[unit]), unit);
       }
     }
     return rtf.format(0, "second");
@@ -115,7 +115,7 @@ export default function Actuacion() {
             )}
             <h1 className="subject">{actuacion.concepto}</h1>
             <p className="secondary-item">
-              <strong>{actuacion.tipo}</strong>
+              <strong>- {actuacion.tipo} -</strong>
             </p>
             <div className="secondary-info">
               <p className="secondary-item">
@@ -153,18 +153,18 @@ export default function Actuacion() {
           ) : (
             <div className="table">
               <p className="amount-info">
-                <small>Composiciones interpretadas:</small> {repertorios.length}
+                <small>Composiciones interpretadas:</small> <b>{repertorios.length}</b>
               </p>
               {actuacion.tipo !== "Pregón" ? (
                 <>
                   <p className="average-info">
-                    <small>Media marchas/hora:</small>{" "}
-                    {((repertorios.length / diffHours()) * -1)
+                    <b>{diffHours()*-1}</b><small> horas | Marchas/hora: </small>
+                    <b>{((repertorios.length / diffHours()) * -1)
                       .toString()
-                      .slice(0, 4)}
+                      .slice(0, 4)}</b>
                   </p>
                   <div className="content">
-                    <p className="enlazadas-info"></p>
+                    <span className="enlazadas-info"></span>
                     <p className="enlazadas-label">Enlazadas</p>
                   </div>
                 </>
