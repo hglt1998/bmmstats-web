@@ -13,7 +13,8 @@ a {
 
 p {
     padding: 0px;
-    margin: 0px;
+    margin: 10px;
+    font-size: calc(2vh - 4px);
 }
 
 .container {
@@ -23,6 +24,31 @@ p {
 h2 {
     text-align: center;
     margin-top: 1vh;
+}
+
+.chips {
+    span {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        
+        &.ssanta {
+            background-color: #450045;
+        }
+        &.glorias {
+            background-color: #add8e6;
+        }
+        &.Extraordinarias {
+            background-color: teal;
+        }
+    }
+    align-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
 }
 
 
@@ -37,34 +63,34 @@ h2 {
     animation: blinkerText 2s linear infinite;
 }
 
-tr#row {
+#row {
     margin: 0px 5px;
+    
+    &.SemanaSanta {
+        color: #450045;
+        background-color: #80008030;
+    }
+    &.SemanaSanta:nth-child(odd) {
+        color: #450045;
+        background-color: #80008015;
+    }
+    &.Glorias {
+        background-color: #add8e640;
+    }
+    &.Glorias:nth-child(odd) {
+        background-color: #add8e690;
+    }
+    &.ProcesiónExtraordinaria {
+        background-color: #008080;
+        color: white;
+        border: white .5px solid;
+    }
+    &.ProcesiónExtraordinaria:nth-child(odd) {
+        background-color: teal;
+        color: white;
+    }
 }
 
-#row.SemanaSanta {
-    color: #450045;
-    background-color: #80008030;
-}
-#row.SemanaSanta:nth-child(odd) {
-    color: #450045;
-    background-color: #80008015;
-}
-
-#row.Glorias {
-    background-color: #add8e640;
-}
-#row.Glorias:nth-child(odd) {
-    background-color: #add8e690;
-}
-#row.ProcesiónExtraordinaria {
-    background-color: #008080;
-    color: white;
-    border: white .5px solid;
-}
-#row.ProcesiónExtraordinaria:nth-child(odd) {
-    background-color: teal;
-    color: white;
-}
 
 @keyframes blinker {
     50% {
@@ -95,7 +121,7 @@ table {
     margin: auto;
 
     tr:hover {
-        z-index: 5å;
+        z-index: 5;
         cursor: pointer;
     }
 
@@ -118,7 +144,7 @@ table {
 
     td {
         font-size: 1em;
-        padding: 0px 5px;
+        padding: .7vw 5px;
     }
     
 }
@@ -139,6 +165,18 @@ table {
         }
 
     }
+
+    .chips {
+        span {
+            height: 5px;
+            width: 5px;
+        }
+
+        p {
+            font-size: 2.5vw;
+        }
+    }
+
     table {
         th {
             font-size: 0.8em;

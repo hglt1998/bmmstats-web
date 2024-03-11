@@ -66,6 +66,11 @@ export default function Actuaciones() {
               )}
             </p>
           </div>
+          <div className="chips">
+            <span className="ssanta"></span><p>Semana Santa</p>
+            <span className="glorias"></span><p>Glorias</p>
+            <span className="Extraordinarias"></span><p>Extraordinarias</p>
+          </div>
           <div>
             <table>
               <thead>
