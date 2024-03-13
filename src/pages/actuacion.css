@@ -29,6 +29,13 @@
     50% {
         opacity: 0;
     }
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .subject {
@@ -118,7 +125,7 @@ span.secondary-item {
     color: #FFFFFF;
     text-align: center;
     padding: 0.5vh;
-    margin-bottom: 1px;
+    margin: 0px 0px 1px;
 }
 
 .average-info {

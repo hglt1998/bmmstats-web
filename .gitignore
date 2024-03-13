@@ -23,9 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 #public folder
-public/
-public
+/public
 *.gitignore
-public/*
 firebase.json
 .firebase

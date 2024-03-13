@@ -33,13 +33,13 @@ h2 {
         border-radius: 10px;
         
         &.ssanta {
-            background-color: #450045;
+            background-color: #800080;
         }
         &.glorias {
-            background-color: #add8e6;
+            background-color: #f5deb3;
         }
         &.Extraordinarias {
-            background-color: teal;
+            background-color: #008080;
         }
     }
     align-content: center;
@@ -51,7 +51,6 @@ h2 {
     justify-content: flex-end;
 }
 
-
 .blinker {
     vertical-align: middle;
     color: red;
@@ -61,34 +60,6 @@ h2 {
 .liveIndicator {
     color: red;
     animation: blinkerText 2s linear infinite;
-}
-
-#row {
-    margin: 0px 5px;
-    
-    &.SemanaSanta {
-        color: #450045;
-        background-color: #80008030;
-    }
-    &.SemanaSanta:nth-child(odd) {
-        color: #450045;
-        background-color: #80008015;
-    }
-    &.Glorias {
-        background-color: #add8e640;
-    }
-    &.Glorias:nth-child(odd) {
-        background-color: #add8e690;
-    }
-    &.ProcesiónExtraordinaria {
-        background-color: #008080;
-        color: white;
-        border: white .5px solid;
-    }
-    &.ProcesiónExtraordinaria:nth-child(odd) {
-        background-color: teal;
-        color: white;
-    }
 }
 
 
@@ -129,22 +100,42 @@ table {
         z-index: 1;
         height: 4.4vh;
         text-align: center;
+        
+        &.isLive {
+            animation: blinker 2s linear infinite;
+            background-color: wheat;
+            color: red;
+        }
     }
-
-    tr.isLive {
-        animation: blinker 2s linear infinite;
-        background-color: wheat;
-        color: red;
-    }
+    
 
     tr:nth-child(odd) {
-        background-color: lightgrey;
+        background-color: #e8f1ff;
         z-index: 1;
     }
 
     td {
         font-size: 1em;
-        padding: .7vw 5px;
+        padding: .7vw 1vw;
+
+        span {
+            padding: .3vw .4vw;
+            border-radius: 3px;
+            
+            &.SemanaSanta {
+                background-color: #800080;
+                color: white;
+            }
+
+            &.Glorias {
+                background-color: #f5deb3;
+            }
+
+            &.ProcesiónExtraordinaria {
+                background-color: #008080;
+                color: white;
+            }
+        }
     }
     
 }
@@ -179,12 +170,13 @@ table {
 
     table {
         th {
-            font-size: 0.8em;
+            font-size: 0.7em;
         }
         td {
-            font-size: 0.5em;
+            font-size: 0.45em;
         }
     }
+
 }
 
 

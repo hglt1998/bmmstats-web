@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import firebase from "../database/firebase";
 import { useNavigate } from "react-router-dom";
 import classes from "./actuaciones.scss";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress} from "@mui/material";
 
 export default function Actuaciones() {
   const [events, setEvents] = useState([]);
@@ -78,6 +78,7 @@ export default function Actuaciones() {
                 <th>Concepto</th>
                 <th>Organizador</th>
                 <th>Ciudad</th>
+                <th>Tipo</th>
                 <th>Fecha</th>
               </thead>
               <tbody>
@@ -92,18 +93,16 @@ export default function Actuaciones() {
                   return (
                     <tr
                       id="row"
-                      className={
-                        evento.isLive
-                          ? "isLive liveIndicator"
-                          : "" + evento.tagActuacion?.replace(/\s/g, "")
-                      }
+                      className={evento.isLive ? "isLive liveIndicator" : ""}
                       onClick={() => handleClick(evento.id)}
-                      key={index}
-                    >
+                      key={index}>
                       <td>{index + 1}</td>
                       <td>{evento.concepto}</td>
                       <td>{evento.organizador}</td>
                       <td>{evento.ciudad}</td>
+                      <td className='chip'>
+                        <span className={evento.tagActuacion?.replace(/\s/g, "")}>{evento.tipo}</span>
+                      </td>
                       <td>{formatedDate}</td>
                     </tr>
                   );

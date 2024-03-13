@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.06177886.css",
-    "main.js": "/static/js/main.7fde0701.js",
+    "main.css": "/static/css/main.759c4281.css",
+    "main.js": "/static/js/main.a4676df7.js",
     "static/media/SinfondoP.webp": "/static/media/SinfondoP.edcbfdf1b5cfec72e8a8.webp",
     "static/media/banner.png": "/static/media/banner.d1068db869b4b87d697b.png",
     "index.html": "/index.html",
-    "main.06177886.css.map": "/static/css/main.06177886.css.map",
-    "main.7fde0701.js.map": "/static/js/main.7fde0701.js.map"
+    "main.759c4281.css.map": "/static/css/main.759c4281.css.map",
+    "main.a4676df7.js.map": "/static/js/main.a4676df7.js.map"
   },
   "entrypoints": [
-    "static/css/main.06177886.css",
-    "static/js/main.7fde0701.js"
+    "static/css/main.759c4281.css",
+    "static/js/main.a4676df7.js"
   ]
 }
