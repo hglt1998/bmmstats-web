@@ -97,6 +97,35 @@ export default function Actuacion() {
     }
     return rtf.format(0, "second");
   };
+
+  const exportCSV = () => {
+
+    let csvContent = [actuacion.concepto, actuacion.organizador1, actuacion.ubicacion, new Date(actuacion.fecha.seconds * 1000).toLocaleString().slice(0, -3)].join(";") + "\r\n"
+    
+    csvContent += ['Número en lista', 'Título', 'Compositor', 'Ubicación', 'Hora'].join(";") + "\r\n"
+
+    repertorios.forEach((interpretacion) => {
+      const row = [
+        interpretacion.nMarcha,
+        interpretacion.tituloMarcha,
+        interpretacion.compositor,
+        interpretacion.ubicacion,
+        interpretacion.time.substring(
+          interpretacion.time.indexOf(",") + 2,
+          interpretacion.time.length - 3
+        ),
+      ];
+      csvContent += row.join(";") + "\r\n";
+    });
+
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent])
+    const url = window.URL.createObjectURL(blob)
+    const linkElement = document.createElement('a')
+    linkElement.href = url
+    linkElement.setAttribute("download", actuacion.concepto + ".csv")
+    linkElement.click()
+  };
   // <------------------------------- GETTERS ------------------------------->
 
   return (
@@ -153,19 +182,26 @@ export default function Actuacion() {
           ) : (
             <div className="table">
               <p className="amount-info">
-                <small>Composiciones interpretadas:</small> <b>{repertorios.length}</b>
+                <small>Composiciones interpretadas:</small>{" "}
+                <b>{repertorios.length}</b>
               </p>
               {actuacion.tipo !== "Pregón" ? (
                 <>
                   <p className="average-info">
-                    <b>{diffHours()*-1}</b><small> horas | Marchas/hora: </small>
-                    <b>{((repertorios.length / diffHours()) * -1)
-                      .toString()
-                      .slice(0, 4)}</b>
+                    <b>{diffHours() * -1}</b>
+                    <small> horas | Marchas/hora: </small>
+                    <b>
+                      {((repertorios.length / diffHours()) * -1)
+                        .toString()
+                        .slice(0, 4)}
+                    </b>
                   </p>
                   <div className="content">
                     <span className="enlazadas-info"></span>
                     <p className="enlazadas-label">Enlazadas</p>
+                    {actuacion.tipo === "Procesión" ? <button id="downloadButton" onClick={() => exportCSV()} className="exportCSV">
+                      CSV <span className="material-icons">download</span>
+                    </button> : <></>}
                   </div>
                 </>
               ) : (

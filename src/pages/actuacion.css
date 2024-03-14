@@ -25,6 +25,26 @@
     margin: 10px 0px;
 }
 
+.exportCSV {
+    padding: 3px 5px;
+    background-color: #25292e;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: smaller;
+
+    span {
+        margin: 0px;
+        padding: 0px;
+        font-size: large;
+    }
+}
+
 @keyframes blinker {
     50% {
         opacity: 0;
