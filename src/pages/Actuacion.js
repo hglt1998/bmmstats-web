@@ -1,10 +1,12 @@
+/* eslint-disable */
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
 import "./actuacion.css";
-import { Box, CircularProgress, Icon } from "@mui/material";
-import { Tweet } from "react-tweet";
+import { Box, CircularProgress } from "@mui/material";
+import Table from "../components/Table";
+import TopInfo from "../components/TopInfo";
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -14,10 +16,6 @@ export default function Actuacion() {
 
   const [actuacion, setActuacion] = useState([]);
 
-  const [fecha, setFecha] = useState([]);
-
-  const [showTwits, setShowTwits] = useState(true)
-
   // <------------------------------- USE EFFECT ------------------------------->
 
   useEffect(() => {
@@ -26,7 +24,6 @@ export default function Actuacion() {
       doc.onSnapshot((info) => {
         const actuacion = info.data();
         setActuacion(actuacion);
-        setFecha(actuacion.fecha);
       });
     };
     const loadData = (id) => {
@@ -42,92 +39,10 @@ export default function Actuacion() {
 
     getActuacionById(id);
     loadData(id);
-    setTimeout(() => {
-      diffHours();
-    }, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
+  const diffHours = diffHours(repertorios)
 
-  const diffHours = () => {
-    const toDateParts = repertorios.filter(item => !item.url)[0].time?.split(", ")[0].split("/");
-    const toTimeParts = repertorios.filter(item => !item.url)[0].time?.split(", ")[1].split(":");
-
-    var toDate = new Date(
-      toDateParts[2],
-      toDateParts[1] - 1,
-      toDateParts[0],
-      toTimeParts[0],
-      toTimeParts[1],
-      toTimeParts[2]
-    ).getTime();
-
-    const fromDateParts = repertorios.filter(item => !item.url)[repertorios.filter(item => !item.url).length - 1].time
-      ?.split(", ")[0]
-      .split("/");
-    const fromTimeParts = repertorios.filter(item => !item.url)[repertorios.filter(item => !item.url).length - 1].time
-      ?.split(", ")[1]
-      .split(":");
-    var fromDate = new Date(
-      fromDateParts[2],
-      fromDateParts[1] - 1,
-      fromDateParts[0],
-      fromTimeParts[0],
-      fromTimeParts[1],
-      fromTimeParts[2]
-    ).getTime();
-
-    const DATE_UNITS = {
-      // in seconds
-      year: 31536000,
-      month: 2629800,
-      day: 86400,
-      hour: 3600,
-      minute: 60,
-      second: 1,
-    };
-
-    const languageCode = "es"; // English
-
-    const rtf = new Intl.NumberFormat(languageCode, { numeric: "auto" });
-
-    const elapsed = (fromDate - toDate) / 1000;
-
-    for (const unit in DATE_UNITS) {
-      if (Math.abs(elapsed) > DATE_UNITS[unit]) {
-        return rtf.format(Math.round(elapsed / DATE_UNITS[unit]), unit);
-      }
-    }
-    return rtf.format(0, "second");
-  };
-
-  const exportCSV = () => {
-
-    let csvContent = [actuacion.concepto, actuacion.organizador1, actuacion.ubicacion, new Date(actuacion.fecha.seconds * 1000).toLocaleString().slice(0, -3)].join(";") + "\r\n"
-    
-    csvContent += ['Número en lista', 'Título', 'Compositor', 'Ubicación', 'Hora'].join(";") + "\r\n"
-
-    repertorios.filter((item) => !item.url).forEach((interpretacion) => {
-      const row = [
-        interpretacion.nMarcha,
-        interpretacion.tituloMarcha,
-        interpretacion.compositor,
-        interpretacion.ubicacion,
-        interpretacion.time.substring(
-          interpretacion.time.indexOf(",") + 2,
-          interpretacion.time.length - 3
-        ),
-      ];
-      csvContent += row.join(";") + "\r\n";
-    });
-
-    const BOM = '\uFEFF';
-    const blob = new Blob([BOM + csvContent])
-    const url = window.URL.createObjectURL(blob)
-    const linkElement = document.createElement('a')
-    linkElement.href = url
-    linkElement.setAttribute("download", actuacion.concepto + ".csv")
-    linkElement.click()
-  };
   // <------------------------------- GETTERS ------------------------------->
 
   return (
@@ -138,172 +53,11 @@ export default function Actuacion() {
         </Box>
       ) : (
         <>
-          <div className="top-info">
-            {actuacion.isLive ? (
-              <span className="badge-alert">En directo</span>
-            ) : (
-              <span className="badge">Finalizado</span>
-            )}
-            <h1 className="subject">{actuacion.concepto}</h1>
-            <p className="secondary-item">
-              <strong>- {actuacion.tipo} -</strong>
-            </p>
-            <div className="secondary-info">
-              <p className="secondary-item">
-                <span className="material-icons secondary-item">person</span>
-                {actuacion.organizador1}
-              </p>
-              {actuacion.organizador2 ? (
-                <p className="secondary-item">
-                  <span className="material-icons secondary-item">person</span>
-                  {actuacion.organizador2}
-                </p>
-              ) : (
-                <></>
-              )}
-              <p className="secondary-item">
-                <span className="material-icons secondary-item">
-                  location_city
-                </span>
-                {actuacion.ubicacion}
-              </p>
-              <p className="secondary-item">
-                <span className="material-icons secondary-item">
-                  location_on
-                </span>
-                {actuacion.ciudad}
-              </p>
-              <p className="secondary-item">
-                <span className="material-icons secondary-item">schedule</span>
-                {new Date(fecha.seconds * 1000).toLocaleString().slice(0, -3)} h
-              </p>
-            </div>
-          </div>
-          {repertorios.length === 0 ? (
+          <TopInfo actuacion={actuacion} />
+          {repertorios.filter(item => !item.url).length === 0 ? (
             <p>No hay datos</p>
           ) : (
-            <div className="table">
-              <p className="amount-info">
-                <small>Composiciones interpretadas:</small>{" "}
-                <b>{repertorios.filter((item) => !item.url).length}</b>
-              </p>
-              {actuacion.tipo !== "Pregón" ? (
-                <>
-                  <p className="average-info">
-                    <b>{diffHours() * -1}</b>
-                    <small> horas | Marchas/hora: </small>
-                    <b>
-                      {(
-                        (repertorios.filter((item) => !item.url).length /
-                          diffHours()) *
-                        -1
-                      )
-                        .toString()
-                        .slice(0, 4)}
-                    </b>
-                  </p>
-                  <div className="content">
-                    <span className="enlazadas-info"></span>
-                    <p className="enlazadas-label">Enlazadas</p>
-                    {actuacion.tipo === "Procesión" ||
-                    !/Mobi/.test(window.navigator.userAgent) ? (
-                      <button
-                        id="downloadButton"
-                        onClick={() => exportCSV()}
-                        className="exportCSV"
-                      >
-                        CSV <span className="material-icons">download</span>
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                  <div className="content twitContainer">
-                    <button
-                      onClick={() => setShowTwits(!showTwits)}
-                      className="absolute"
-                    >
-                      {showTwits ? (
-                        <span className="material-icons secondary-item">
-                          visibility
-                        </span>
-                      ) : (
-                        <span className="material-icons secondary-item">
-                          visibility_off
-                        </span>
-                      )}
-                      twits
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <></>
-              )}
-
-              {repertorios.map((repertorio, index) => {
-                const time = repertorio.time;
-                return (
-                  <>
-                    {!repertorio.url ? (
-                      <div
-                        className={
-                          repertorio.enlazada % 2 === 0
-                            ? "table2-row-enlazada"
-                            : "table2-row"
-                        }
-                        key={index}
-                      >
-                        <div className="table2-cell column2-1">
-                          <p className="item2-text index">
-                            <b>
-                              {repertorios.filter(item => !item.url).length - repertorios.filter((item) => !item.url).map(item => item.idInterpretacion).indexOf(repertorio.idInterpretacion)}
-                            </b>
-                          </p>
-                          <div className="secondDiv">
-                            <p className="item2-text">
-                              <b>{repertorio.tituloMarcha}</b>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="table2-cell column2-2">
-                          <p className="item2-text">{repertorio.compositor}</p>
-                        </div>
-                        {actuacion.tipo !== "Concierto" &&
-                        actuacion.tipo !== "Pregón" ? (
-                          <div className="table2-cell column2-3">
-                            <p className="item2-text">{repertorio.ubicacion}</p>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                        {actuacion.tipo !== "Concierto" &&
-                        actuacion.tipo !== "Pregón" ? (
-                          <div className="table2-cell column2-4">
-                            <p className="item2-text">
-                              {time.substring(
-                                time.indexOf(",") + 2,
-                                time.length - 3
-                              )}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="map-wrapper"></div>
-                        )}
-                      </div>
-                    ) : showTwits ? (
-                      <div className="twit">
-                        <Tweet
-                          key={index}
-                          id={repertorio.url.match(/\/status\/(\d+)/)[1]}
-                        />
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                );
-              })}
-            </div>
+            <Table repertorios={repertorios} actuacion={actuacion} diffHours={diffHours || 0}/>
           )}
         </>
       )}

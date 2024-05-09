@@ -28,6 +28,16 @@
 .twit {
     display: flex;
     justify-content: center;
+    * {
+        text-align: left;
+        font-size: 13px;
+    }
+
+    article {
+        * {
+            line-height: 1rem;
+        }
+    }
 }
 
 .twitContainer {
