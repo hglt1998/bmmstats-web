@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
 import "./actuacion.css";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Icon } from "@mui/material";
+import { Tweet } from "react-tweet";
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -14,6 +15,8 @@ export default function Actuacion() {
   const [actuacion, setActuacion] = useState([]);
 
   const [fecha, setFecha] = useState([]);
+
+  const [showTwits, setShowTwits] = useState(true)
 
   // <------------------------------- USE EFFECT ------------------------------->
 
@@ -46,8 +49,8 @@ export default function Actuacion() {
   }, []);
 
   const diffHours = () => {
-    const toDateParts = repertorios[0].time?.split(", ")[0].split("/");
-    const toTimeParts = repertorios[0].time?.split(", ")[1].split(":");
+    const toDateParts = repertorios.filter(item => !item.url)[0].time?.split(", ")[0].split("/");
+    const toTimeParts = repertorios.filter(item => !item.url)[0].time?.split(", ")[1].split(":");
 
     var toDate = new Date(
       toDateParts[2],
@@ -58,13 +61,12 @@ export default function Actuacion() {
       toTimeParts[2]
     ).getTime();
 
-    const fromDateParts = repertorios[repertorios.length - 1].time
+    const fromDateParts = repertorios.filter(item => !item.url)[repertorios.filter(item => !item.url).length - 1].time
       ?.split(", ")[0]
       .split("/");
-    const fromTimeParts = repertorios[repertorios.length - 1].time
+    const fromTimeParts = repertorios.filter(item => !item.url)[repertorios.filter(item => !item.url).length - 1].time
       ?.split(", ")[1]
       .split(":");
-
     var fromDate = new Date(
       fromDateParts[2],
       fromDateParts[1] - 1,
@@ -104,7 +106,7 @@ export default function Actuacion() {
     
     csvContent += ['Número en lista', 'Título', 'Compositor', 'Ubicación', 'Hora'].join(";") + "\r\n"
 
-    repertorios.forEach((interpretacion) => {
+    repertorios.filter((item) => !item.url).forEach((interpretacion) => {
       const row = [
         interpretacion.nMarcha,
         interpretacion.tituloMarcha,
@@ -183,7 +185,7 @@ export default function Actuacion() {
             <div className="table">
               <p className="amount-info">
                 <small>Composiciones interpretadas:</small>{" "}
-                <b>{repertorios.length}</b>
+                <b>{repertorios.filter((item) => !item.url).length}</b>
               </p>
               {actuacion.tipo !== "Pregón" ? (
                 <>
@@ -191,7 +193,11 @@ export default function Actuacion() {
                     <b>{diffHours() * -1}</b>
                     <small> horas | Marchas/hora: </small>
                     <b>
-                      {((repertorios.length / diffHours()) * -1)
+                      {(
+                        (repertorios.filter((item) => !item.url).length /
+                          diffHours()) *
+                        -1
+                      )
                         .toString()
                         .slice(0, 4)}
                     </b>
@@ -199,9 +205,35 @@ export default function Actuacion() {
                   <div className="content">
                     <span className="enlazadas-info"></span>
                     <p className="enlazadas-label">Enlazadas</p>
-                    {actuacion.tipo === "Procesión" ? <button id="downloadButton" onClick={() => exportCSV()} className="exportCSV">
-                      CSV <span className="material-icons">download</span>
-                    </button> : <></>}
+                    {actuacion.tipo === "Procesión" ||
+                    !/Mobi/.test(window.navigator.userAgent) ? (
+                      <button
+                        id="downloadButton"
+                        onClick={() => exportCSV()}
+                        className="exportCSV"
+                      >
+                        CSV <span className="material-icons">download</span>
+                      </button>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div className="content twitContainer">
+                    <button
+                      onClick={() => setShowTwits(!showTwits)}
+                      className="absolute"
+                    >
+                      {showTwits ? (
+                        <span className="material-icons secondary-item">
+                          visibility
+                        </span>
+                      ) : (
+                        <span className="material-icons secondary-item">
+                          visibility_off
+                        </span>
+                      )}
+                      twits
+                    </button>
                   </div>
                 </>
               ) : (
@@ -211,49 +243,64 @@ export default function Actuacion() {
               {repertorios.map((repertorio, index) => {
                 const time = repertorio.time;
                 return (
-                  <div
-                    className={
-                      repertorio.enlazada % 2 === 0
-                        ? "table2-row-enlazada"
-                        : "table2-row"
-                    }
-                    key={repertorio.idRepertorio}
-                  >
-                    <div className="table2-cell column2-1">
-                      <p className="item2-text index">
-                        <b>{repertorios.length - index}</b>
-                      </p>
-                      <div className="secondDiv">
-                        <p className="item2-text">
-                          <b>{repertorio.tituloMarcha}</b>
-                        </p>
+                  <>
+                    {!repertorio.url ? (
+                      <div
+                        className={
+                          repertorio.enlazada % 2 === 0
+                            ? "table2-row-enlazada"
+                            : "table2-row"
+                        }
+                        key={index}
+                      >
+                        <div className="table2-cell column2-1">
+                          <p className="item2-text index">
+                            <b>
+                              {repertorios.filter(item => !item.url).length - repertorios.filter((item) => !item.url).map(item => item.idInterpretacion).indexOf(repertorio.idInterpretacion)}
+                            </b>
+                          </p>
+                          <div className="secondDiv">
+                            <p className="item2-text">
+                              <b>{repertorio.tituloMarcha}</b>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="table2-cell column2-2">
+                          <p className="item2-text">{repertorio.compositor}</p>
+                        </div>
+                        {actuacion.tipo !== "Concierto" &&
+                        actuacion.tipo !== "Pregón" ? (
+                          <div className="table2-cell column2-3">
+                            <p className="item2-text">{repertorio.ubicacion}</p>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                        {actuacion.tipo !== "Concierto" &&
+                        actuacion.tipo !== "Pregón" ? (
+                          <div className="table2-cell column2-4">
+                            <p className="item2-text">
+                              {time.substring(
+                                time.indexOf(",") + 2,
+                                time.length - 3
+                              )}
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="map-wrapper"></div>
+                        )}
                       </div>
-                    </div>
-                    <div className="table2-cell column2-2">
-                      <p className="item2-text">{repertorio.compositor}</p>
-                    </div>
-                    {actuacion.tipo !== "Concierto" &&
-                    actuacion.tipo !== "Pregón" ? (
-                      <div className="table2-cell column2-3">
-                        <p className="item2-text">{repertorio.ubicacion}</p>
+                    ) : showTwits ? (
+                      <div className="twit">
+                        <Tweet
+                          key={index}
+                          id={repertorio.url.match(/\/status\/(\d+)/)[1]}
+                        />
                       </div>
                     ) : (
                       <></>
                     )}
-                    {actuacion.tipo !== "Concierto" &&
-                    actuacion.tipo !== "Pregón" ? (
-                      <div className="table2-cell column2-4">
-                        <p className="item2-text">
-                          {time.substring(
-                            time.indexOf(",") + 2,
-                            time.length - 3
-                          )}
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="map-wrapper"></div>
-                    )}
-                  </div>
+                  </>
                 );
               })}
             </div>

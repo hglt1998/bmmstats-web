@@ -25,6 +25,29 @@
     margin: 10px 0px;
 }
 
+.twit {
+    display: flex;
+    justify-content: center;
+}
+
+.twitContainer {
+    position: sticky;
+    top: 20vh;
+    justify-content: flex-end;
+    z-index: 1000;
+}
+
+.absolute {
+    display: flex;
+    align-items: center;
+    border: 0px;
+    padding: 3px 5px;
+    background-color: #25292e;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 10px 10px 61px 0px rgba(0,0,0,0.53);
+}
+
 .exportCSV {
     padding: 3px 5px;
     background-color: #25292e;
@@ -169,6 +192,7 @@ span.secondary-item {
 .column2-1 {
     width: 40%;
     display: flex;
+    align-items: center;
 }
 
 .column2-2 {
