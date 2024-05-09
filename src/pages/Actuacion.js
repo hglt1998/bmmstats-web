@@ -1,10 +1,12 @@
+/* eslint-disable */
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
-import logo from "../static/LogoSuenaMairenaBlancoIsolated.png";
 import "./actuacion.css";
 import { Box, CircularProgress } from "@mui/material";
+import Table from "../components/Table";
+import TopInfo from "../components/TopInfo";
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -14,17 +16,14 @@ export default function Actuacion() {
 
   const [actuacion, setActuacion] = useState([]);
 
-  const [fecha, setFecha] = useState([]);
-
   // <------------------------------- USE EFFECT ------------------------------->
 
   useEffect(() => {
     const getActuacionById = async (id) => {
       const doc = Firebase.db.collection("actuaciones").doc(id);
-      doc.get().then((info) => {
+      doc.onSnapshot((info) => {
         const actuacion = info.data();
         setActuacion(actuacion);
-        setFecha(actuacion.fecha);
       });
     };
     const loadData = (id) => {
@@ -41,11 +40,14 @@ export default function Actuacion() {
     getActuacionById(id);
     loadData(id);
   }, []);
+  
+  const diffHours = diffHours(repertorios)
 
   // <------------------------------- GETTERS ------------------------------->
 
   return (
     <div className="container">
+<<<<<<< HEAD
       {repertorios.length === 0 || actuacion.concepto == null ? (
         <div className="spinner"></div>
       ) : (<>
@@ -141,6 +143,19 @@ export default function Actuacion() {
             })
           ) : (
             <div></div>
+=======
+      {repertorios.length < 1 || !actuacion.organizador1 ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: "20%" }}>
+          <CircularProgress size={200} />
+        </Box>
+      ) : (
+        <>
+          <TopInfo actuacion={actuacion} />
+          {repertorios.filter(item => !item.url).length === 0 ? (
+            <p>No hay datos</p>
+          ) : (
+            <Table repertorios={repertorios} actuacion={actuacion} diffHours={diffHours || 0}/>
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
           )}
         </div>
       </>

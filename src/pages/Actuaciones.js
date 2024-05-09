@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import firebase from "../database/firebase";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import "./actuaciones.css";
 
@@ -16,10 +17,30 @@ export default function Actuaciones() {
       .get()
       .then((querySnapshot) => {
         const events = [];
+=======
+import { useNavigate } from "react-router-dom";
+import classes from "./actuaciones.scss";
+import { Box, CircularProgress} from "@mui/material";
+
+export default function Actuaciones() {
+  const [events, setEvents] = useState([]);
+
+  const navigate = useNavigate();
+
+  const loadData = () => {
+
+    try {
+      firebase.db
+        .collection("actuaciones")
+        .orderBy("fecha", "desc")
+        .onSnapshot((querySnapshot) => {
+          const events = [];
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
 
           querySnapshot.forEach((doc) => {
             const info = doc.data();
 
+<<<<<<< HEAD
           events.push({
             id: info.idActuacion,
             concepto: info.concepto,
@@ -28,12 +49,29 @@ export default function Actuaciones() {
             ciudad: info.ciudad,
             tipo: info.tipo,
             isLive: info.isLive,
+=======
+            events.push({
+              id: info.idActuacion,
+              concepto: info.concepto,
+              organizador: info.organizador1,
+              fecha: info.fecha,
+              ciudad: info.ciudad,
+              tipo: info.tipo,
+              isLive: info.isLive,
+              tagActuacion: info.tagActuacion
+            });
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
           });
         });
+<<<<<<< HEAD
         setVisibleEvents(events);
         setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1])
       });
 
+=======
+    } catch (error) {
+    }
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
   };
 
   const loadNextData = () => {
@@ -74,6 +112,7 @@ export default function Actuaciones() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <div className="container">
       {visibleEvents.length === 0 ? (
       <div className="loader">
@@ -84,10 +123,28 @@ export default function Actuaciones() {
           <div className="top-info">
             <h1 className="main-title">Actuaciones</h1>
             <p className="info-text">
+=======
+    <div className={classes.container}>
+      {events.length < 1 ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: "20%" }}>
+          <CircularProgress size={200} />
+        </Box>
+      ) : (
+        <>
+          <div className={classes["main-title"]}>
+            <h2>Actuaciones</h2>
+            <p className="font-sans">
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
               Actualmente hay <b>{events.length}</b> eventos en nuestra base de
               datos
+              {events.some((event) => event.isLive === true) ? (
+                <span className="liveIndicator"> y 1 actuación en directo</span>
+              ) : (
+                ""
+              )}
             </p>
           </div>
+<<<<<<< HEAD
           <div className="table-wrapper">
             <div className="table">
               <div className="table-header">
@@ -107,9 +164,30 @@ export default function Actuaciones() {
               <div className="table-wrapper">
                 {visibleEvents.map((evento) => {
                   const formatedDate = new Date(evento.fecha.seconds * 1000)
+=======
+          <div className="chips">
+            <span className="ssanta"></span><p>Semana Santa</p>
+            <span className="glorias"></span><p>Glorias</p>
+            <span className="Extraordinarias"></span><p>Extraordinarias</p>
+          </div>
+          <div>
+            <table>
+              <thead>
+                <th>#</th>
+                <th>Concepto</th>
+                <th>Organizador</th>
+                <th>Ciudad</th>
+                <th>Tipo</th>
+                <th>Fecha</th>
+              </thead>
+              <tbody>
+                {events.map((evento, index) => {
+                  var formatedDate = new Date(evento.fecha.seconds * 1000)
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
                     .toLocaleString()
                     .toString();
                   return (
+<<<<<<< HEAD
                     <div className="table-row" key={evento.id}>
                       <div className="table-cell column-1">
                         {evento.isLive === true ? (
@@ -149,6 +227,22 @@ export default function Actuaciones() {
                         </Link>
                       </div>
                     </div>
+=======
+                    <tr
+                      id="row"
+                      className={evento.isLive ? "isLive liveIndicator" : ""}
+                      onClick={() => handleClick(evento.id)}
+                      key={index}>
+                      <td>{index + 1}</td>
+                      <td>{evento.concepto}</td>
+                      <td>{evento.organizador}</td>
+                      <td>{evento.ciudad}</td>
+                      <td className='chip'>
+                        <span className={evento.tagActuacion?.replace(/\s/g, "")}>{evento.tipo}</span>
+                      </td>
+                      <td>{formatedDate}</td>
+                    </tr>
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
                   );
                 })}
               </div>
@@ -166,7 +260,10 @@ export default function Actuaciones() {
           </div>
         </>
       )}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f862716f8d3a7824b8fe3286c053400dde1d26e
     </div>
   );
 }

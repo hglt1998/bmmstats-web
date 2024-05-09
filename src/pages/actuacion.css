@@ -1,5 +1,7 @@
 * {
     font-family: 'Inter', sans-serif;
+    padding: 0px;
+    margin: 0px;
 }
 .badge {
     background-color: #25292e;
@@ -23,14 +25,75 @@
     margin: 10px 0px;
 }
 
+.twit {
+    display: flex;
+    justify-content: center;
+    * {
+        text-align: left;
+        font-size: 13px;
+    }
+
+    article {
+        * {
+            line-height: 1rem;
+        }
+    }
+}
+
+.twitContainer {
+    position: sticky;
+    top: 20vh;
+    justify-content: flex-end;
+    z-index: 1000;
+}
+
+.absolute {
+    display: flex;
+    align-items: center;
+    border: 0px;
+    padding: 3px 5px;
+    background-color: #25292e;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 10px 10px 61px 0px rgba(0,0,0,0.53);
+}
+
+.exportCSV {
+    padding: 3px 5px;
+    background-color: #25292e;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: smaller;
+
+    span {
+        margin: 0px;
+        padding: 0px;
+        font-size: large;
+    }
+}
+
 @keyframes blinker {
     50% {
         opacity: 0;
+    }
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 
 .subject {
     margin: 10px 0px 5px 0px;
+    font-size: 1.5em;
 }
 
 .secondary-info {
@@ -40,9 +103,25 @@
 
 .secondary-item {
     vertical-align: middle;
-    margin: 5px 0px 0px 0px;
-    margin-top: auto;
-    margin-bottom: auto;
+    padding: 0.3vh;
+}
+
+.secondary-item p {
+    font-size: 16px;
+}
+
+p.secondary-item {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+span.secondary-item {
+    font-size: medium;
+    vertical-align: auto;
+}
+
+.table {
+    margin: auto;
+    max-width: 60vw;
 }
 
 .table2-row {
@@ -54,7 +133,7 @@
     vertical-align: middle;
     align-items: center;
     height: 6vh;
-    padding: 0.5vh;
+    padding: 0.1vh 0.2vh;
 }
 
 .table2-row-enlazada {
@@ -67,14 +146,15 @@
     vertical-align: middle;
     align-items: center;
     height: 6vh;
-    padding: 0.5vh;
+    padding: 0.1vh 0vh;
 }
 
 .enlazadas-info {
     border: 1px solid #a55e00;
     background: antiquewhite;
-    width: 20px;
-    margin-right: 15px;
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
     margin-top: 0px;
     margin-bottom: 0px;
 }
@@ -90,6 +170,7 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: center;
+    margin: .8vh 0vh;
 }
 
 .amount-info {
@@ -98,7 +179,7 @@
     color: #FFFFFF;
     text-align: center;
     padding: 0.5vh;
-    margin-bottom: 1px;
+    margin: 0px 0px 1px;
 }
 
 .average-info {
@@ -109,12 +190,24 @@
     margin: 0px;
 }
 
+.secondDiv {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.index {
+    width: 2vh;
+}
+
 .column2-1 {
-    width: 30%;
+    width: 40%;
+    display: flex;
+    align-items: center;
 }
 
 .column2-2 {
-    width: 15%;
+    width: 17%;
 }
 
 .column2-3 {
@@ -122,7 +215,7 @@
 }
 
 .column2-4 {
-    width: 15%;
+    width: 10%;
 }
 
 .buttons-wrapper {
@@ -149,8 +242,14 @@
 }
 
 @media only screen and (max-width: 1300px) {
+    .table {
+        margin: auto;
+        max-width: 60vw;
+    }
+
     .item2-text {
         font-size: 1.5vh;
+        margin: auto;
     }
 
     .header-text {
@@ -164,11 +263,22 @@
     .info-text {
         font-size: 1.5vh;
     }
+
+    .index {
+        padding-right: 1vh;
+        vertical-align: middle;
+    }
 }
 
 @media only screen and (max-width: 900px) {
+
+    .table {
+        margin: auto;
+        max-width: 80vw;
+    }
+
     .item2-text {
-        font-size: 1.4vh;
+        font-size: 1.6vh;
     }
 
     .header-text {
@@ -180,16 +290,34 @@
     }
 }
 
-@media only screen and (max-width: 350px) {
 
-    .table2-cell {
-        line-height: 0.6;
-        font-size: 0.2vw;
+
+@media only screen and (max-width: 500px) {
+    .table {
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .item2-text {
+        font-size: .8rem;
+    }
+
+    .column2-2 p{
+        font-size: .7rem;
+    }
+    .column2-3 p{
+        font-size: .7rem;
+    }
+    .column2-4 p{
+        font-size: .7rem;
     }
 }
 
 @media only screen and (max-width: 300px) {
-
+    
+    .column2-2 p{
+        font-size: .7rem;
+    }
     .table2-cell {
         line-height: 1;
         font-size: 0.1vw;

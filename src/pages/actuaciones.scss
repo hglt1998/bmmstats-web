@@ -11,14 +11,45 @@ a {
     font-size: 2vh;
 }
 
+p {
+    padding: 0px;
+    margin: 10px;
+    font-size: calc(2vh - 4px);
+}
+
 .container {
     padding: 2vh;
 }
 
-h1 {
+h2 {
     text-align: center;
+    margin-top: 1vh;
 }
 
+.chips {
+    span {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        
+        &.ssanta {
+            background-color: #800080;
+        }
+        &.glorias {
+            background-color: #f5deb3;
+        }
+        &.Extraordinarias {
+            background-color: #008080;
+        }
+    }
+    align-content: center;
+    align-items: center;
+    width: 90%;
+    padding: 0px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+}
 
 .blinker {
     vertical-align: middle;
@@ -26,9 +57,32 @@ h1 {
     animation: blinker 2s linear infinite;
 }
 
+.liveIndicator {
+    color: red;
+    animation: blinkerText 2s linear infinite;
+}
+
+
 @keyframes blinker {
     50% {
-        opacity: 0;
+        background-color: rgba(255, 0, 0, 0.317);
+    }
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: white;
+    }
+}
+@keyframes blinkerText {
+    50% {
+        color: red;
+    }
+    0% {
+        color: #000000;
+    }
+    100% {
+        color: #000000;
     }
 }
 
@@ -38,23 +92,50 @@ table {
     margin: auto;
 
     tr:hover {
-        z-index: 5å;
+        z-index: 5;
         cursor: pointer;
     }
 
     tr {
         z-index: 1;
-        height: 5vh;
+        height: 4.4vh;
         text-align: center;
+        
+        &.isLive {
+            animation: blinker 2s linear infinite;
+            background-color: wheat;
+            color: red;
+        }
     }
+    
 
     tr:nth-child(odd) {
-        background-color: lightgrey;
+        background-color: #e8f1ff;
         z-index: 1;
     }
 
     td {
         font-size: 1em;
+        padding: .7vw 1vw;
+
+        span {
+            padding: .3vw .4vw;
+            border-radius: 3px;
+            
+            &.SemanaSanta {
+                background-color: #800080;
+                color: white;
+            }
+
+            &.Glorias {
+                background-color: #f5deb3;
+            }
+
+            &.ProcesiónExtraordinaria {
+                background-color: #008080;
+                color: white;
+            }
+        }
     }
     
 }
@@ -75,14 +156,27 @@ table {
         }
 
     }
-    table {
-        th {
-            font-size: 0.8em;
+
+    .chips {
+        span {
+            height: 5px;
+            width: 5px;
         }
-        td {
-            font-size: 0.5em;
+
+        p {
+            font-size: 2.5vw;
         }
     }
+
+    table {
+        th {
+            font-size: 0.7em;
+        }
+        td {
+            font-size: 0.45em;
+        }
+    }
+
 }
 
 
