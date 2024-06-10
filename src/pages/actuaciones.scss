@@ -109,7 +109,7 @@ table {
     }
     
 
-    tr:nth-child(odd) {
+    tbody > tr:nth-child(odd) {
         background-color: #e8f1ff;
         z-index: 1;
     }
@@ -169,15 +169,14 @@ table {
     }
 
     table {
-        th {
-            font-size: 0.7em;
+        tr {
+            th {
+                font-size: 0.7em;
+            }
         }
         td {
-            font-size: 0.45em;
+            font-size: 0.55em;
         }
     }
 
 }
-
-
-

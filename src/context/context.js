@@ -1,4 +1,14 @@
-export const diffHours = (repertorios) => {
+import { createContext, useContext } from "react";
+
+export const appContext = createContext();
+
+export const useAppContext = () => {
+  const context = useContext(appContext);
+  if (!context) throw new Error("There is no app provider")
+  return context
+}
+
+export const diffHoursMethod = (repertorios) => {
 	const toDateParts = repertorios
 		.filter((item) => !item.url)[0]
 		.time?.split(", ")[0]
@@ -43,3 +53,17 @@ export const diffHours = (repertorios) => {
 	}
 	return rtf.format(0, "second");
 };
+
+export function AppContext({children}) {
+
+  const diffHours = (repertorios) => {
+    return diffHoursMethod(repertorios)
+  }
+
+  return (
+    <appContext.Provider value={{diffHours}}>
+      {children}
+    </appContext.Provider>
+  )
+}
+

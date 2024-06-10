@@ -6,7 +6,8 @@ import Firebase from "../database/firebase";
 import "./actuacion.css";
 import { Box, CircularProgress } from "@mui/material";
 import Table from "../components/Table";
-import TopInfo from "../components/TopInfo";
+import { useAppContext } from "../context/context";
+import CoverImage from "../components/CoverImage";
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -15,6 +16,8 @@ export default function Actuacion() {
   const [repertorios, setRepertorios] = useState([]);
 
   const [actuacion, setActuacion] = useState([]);
+
+  const {diffHours} = useAppContext()
 
   // <------------------------------- USE EFFECT ------------------------------->
 
@@ -34,6 +37,13 @@ export default function Actuacion() {
         if (data) {
           setRepertorios(Object.values(data).reverse());
         }
+        // enable vibration support
+        navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+        if (navigator.vibrate) {
+          // vibration API supported
+            navigator.vibrate(1000);
+        }
       });
     };
 
@@ -41,7 +51,6 @@ export default function Actuacion() {
     loadData(id);
   }, []);
   
-  const diffHours = diffHours(repertorios)
 
   // <------------------------------- GETTERS ------------------------------->
 
@@ -53,11 +62,14 @@ export default function Actuacion() {
         </Box>
       ) : (
         <>
-          <TopInfo actuacion={actuacion} />
+        {<CoverImage actuacion={actuacion} />}
+          
           {repertorios.filter(item => !item.url).length === 0 ? (
             <p>No hay datos</p>
           ) : (
-            <Table repertorios={repertorios} actuacion={actuacion} diffHours={diffHours || 0}/>
+            <div>
+              <Table repertorios={repertorios} actuacion={actuacion} diffHours={diffHours(repertorios) || 0}/>
+            </div>
           )}
         </>
       )}

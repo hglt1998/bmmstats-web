@@ -32,7 +32,7 @@
         text-align: left;
         font-size: 13px;
     }
-
+    
     article {
         * {
             line-height: 1rem;
@@ -40,22 +40,21 @@
     }
 }
 
-.twitContainer {
-    position: sticky;
-    top: 20vh;
-    justify-content: flex-end;
-    z-index: 1000;
-}
-
 .absolute {
     display: flex;
     align-items: center;
     border: 0px;
-    padding: 3px 5px;
+    margin: 0px 0px 0px 5px;
+    padding: 6px 5px;
     background-color: #25292e;
     color: white;
     border-radius: 5px;
     box-shadow: 10px 10px 61px 0px rgba(0,0,0,0.53);
+
+    span {
+        margin: 0px;
+        padding: 0px 0px 0px 5px;
+    }
 }
 
 .exportCSV {
@@ -64,11 +63,30 @@
     color: white;
     border: 0px;
     border-radius: 5px;
-    margin: 0px;
+    margin: 0px 0px 0px 5px;
+    padding: 5px 5px 5px 7px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-size: smaller;
+
+    span {
+        margin: 0px;
+        padding: 0px;
+        font-size: large;
+    }
+}
+
+.graphs {
+    display: flex;
+    background: rgb(35,34,62);
+    border: 0px;
+    color: white;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0px 0px 0px 5px;
     font-size: smaller;
 
     span {

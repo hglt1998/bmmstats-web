@@ -6,7 +6,7 @@ export default function NavBar() {
   return (
         <div className="links">
           <Link className="banner" to='/'>
-            <img height="30" src={card1} alt="banner" className="banner"></img>
+            <img height="30" src={card1} alt="banner"></img>
           </Link>
           <nav className="nav-masthead">
             <NavLink className="nav-link" to="/">Inicio</NavLink>

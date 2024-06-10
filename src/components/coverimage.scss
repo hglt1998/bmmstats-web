@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+
+.wrapper {
+  color: white;
+  margin: 0px auto 20px;
+  width: 60vw;
+  height: 25vw;
+  display: flex;
+  flex-direction: column;
+  
+  img {
+    position: absolute;
+    // top: 8.5vh;
+    width: 60vw;
+    object-fit: cover;
+    height: 25vw;
+    z-index: -10;
+    filter: brightness(40%);
+    box-shadow: inset 0px 0px 10px white;
+    border-radius: 10px;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw 1vw 0vh 1vh;
+     
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .actuacionInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto 1.3vw 1.3vw 1.3vw;
+
+    p {
+      text-align: left;
+      font-size: calc(1vw + 5px);
+    }
+  }
+  p.actuacionLive {
+    display: flex;
+    background-color: #ea2429;
+    padding: 6px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: calc(2vh - 6px);
+    height: fit-content;
+    text-wrap: nowrap;
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      background-color: white;
+      display: inline-block;
+      margin: auto 5px auto 0px;
+      animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite alternate;
+    }
+  }
+
+  h1 {
+    font-size: calc(2vw + 5px);
+  }
+
+  span {
+    font-size: calc(1vw + 5px);
+  }
+  
+  h4 {
+    font-size: calc(1vw + 5px);
+  }
+
+  p {
+    font-size: calc(1vw + 5px);
+    margin: 0px;
+  }
+
+  @keyframes blinker {
+    from { 
+      opacity: 1; 
+    }
+    to { 
+      opacity: 0; 
+    }
+  }
+
+  div {
+    position: relative;
+    margin-bottom: auto;
+  }
+
+}
+
+@media only screen and (max-width: 1300px) {
+  .wrapper {
+    width: 60vw;
+
+    img {
+      width: 60vw;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .wrapper {
+    width: 80vw;
+    height: 30vw;
+    
+    img {
+      width: 80vw;
+      height: 30vw;
+    }
+  }
+}
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    width: 100%;
+    height: 45vw;
+    
+    img {
+      height: 45vw;
+      width: 91.5vw;
+    }
+
+    h1 {
+      font-size: calc(3vw + 5px);
+    }
+  
+    span {
+      font-size: calc(2vw + 5px);
+    }
+    
+    h4 {
+      font-size: calc(2vw + 5px);
+    }
+  
+    p {
+      font-size: calc(2vw + 5px);
+      margin: 0px;
+    }
+
+    .actuacionInfo p {
+      font-size: calc(1vw + 6px);
+    }
+  }
+}

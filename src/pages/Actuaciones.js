@@ -74,22 +74,19 @@ export default function Actuaciones() {
           <div>
             <table>
               <thead>
-                <th>#</th>
-                <th>Concepto</th>
-                <th>Organizador</th>
-                <th>Ciudad</th>
-                <th>Tipo</th>
-                <th>Fecha</th>
+                  <tr>
+                    <th>#</th>
+                    <th>Concepto</th>
+                    <th>Organizador</th>
+                    <th>Ciudad</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                  </tr>
               </thead>
               <tbody>
                 {events.map((evento, index) => {
                   var formatedDate = new Date(evento.fecha.seconds * 1000)
-                    .toLocaleString()
-                    .toString();
-                  formatedDate = formatedDate.substring(
-                    0,
-                    formatedDate.length - 3
-                  );
+                    .toLocaleDateString()
                   return (
                     <tr
                       id="row"

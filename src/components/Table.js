@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Tweet } from "react-tweet";
+import Graphs from "./Graphs";
 
 export default function Table({ repertorios, actuacion, diffHours }) {
 	const [showTwits, setShowTwits] = useState(true);
+	const [showGraph, setShowGraph] = useState(false)
 
 	const exportCSV = () => {
 		let csvContent = [actuacion.concepto, actuacion.organizador1, actuacion.ubicacion, new Date(actuacion.fecha.seconds * 1000).toLocaleString().slice(0, -3)].join(";") + "\r\n";
@@ -37,40 +39,41 @@ export default function Table({ repertorios, actuacion, diffHours }) {
 				<small>Composiciones interpretadas:</small> <b>{repertorios.filter((item) => !item.url).length}</b>
 			</p>
 			{actuacion.tipo !== "Pregón" ? (
-				<>
-					<p className="average-info">
+				<div key={1}>
+					<p className="average-info" key={2}>
 						<b>{diffHours * -1}</b>
 						<small> horas | Marchas/hora: </small>
 						<b>{((repertorios.filter((item) => !item.url).length / diffHours) * -1).toString().slice(0, 4)}</b>
 					</p>
-					<div className="content">
+					<div className="content" key={3}>
 						<span className="enlazadas-info"></span>
 						<p className="enlazadas-label">Enlazadas</p>
-						{actuacion.tipo === "Procesión" || !/Mobi/.test(window.navigator.userAgent) ? (
-							<button
-								id="downloadButton"
-								onClick={() => exportCSV()}
-								className="exportCSV">
-								CSV <span className="material-icons">download</span>
-							</button>
-						) : (
-							<></>
-						)}
-					</div>
-					<div className="content twitContainer">
+						<button
+							id="downloadButton"
+							onClick={() => exportCSV()}
+							className="exportCSV">
+							CSV <span className="material-icons">download</span>
+						</button>
 						<button
 							onClick={() => setShowTwits(!showTwits)}
 							className="absolute">
-							{showTwits ? <span className="material-icons secondary-item">visibility</span> : <span className="material-icons secondary-item">visibility_off</span>}
-							twits
+							Twits {showTwits ? <span className="material-icons secondary-item">visibility</span> : <span className="material-icons secondary-item">visibility_off</span>}
+							
 						</button>
+						
+						{/* <button
+							id="dowloadButton"
+							onClick={() => setShowGraph(!showGraph)}
+							className="graphs">
+							Gráficos <span className="material-icons">bar_chart</span>
+						</button> */}
 					</div>
-				</>
+				</div>
 			) : (
 				<></>
 			)}
-
-			{repertorios.map((repertorio, index) => {
+			{!showGraph ? (
+				<>{repertorios.map((repertorio, index) => {
 				const time = repertorio.time;
 				return (
 					<>
@@ -124,7 +127,12 @@ export default function Table({ repertorios, actuacion, diffHours }) {
 						)}
 					</>
 				);
-			})}
+			})}</>) : (
+				<>
+					<Graphs repertorios={repertorios.filter(item => !item.url && item.tituloMarcha !== "Himno Nacional")} />
+				</>
+			)}
+			
 		</div>
 	);
 }
