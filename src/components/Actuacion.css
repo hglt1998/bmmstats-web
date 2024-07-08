@@ -1,0 +1,15 @@
+#twit {
+  width: 100%;
+  position: sticky;
+  margin: 0px auto;
+  * {
+    text-align: left;
+    font-size: 13px;
+  }
+
+  article {
+    * {
+      line-height: .98rem;
+    }
+  }
+}

@@ -1,10 +1,13 @@
 {
   "name": "bmmstats-web",
-  "version": "2.0.0",
+  "homepage": "https://estadisticas.municipaldemairena.com/",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@headlessui/react": "^2.0.4",
+    "@heroicons/react": "^2.1.3",
     "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.11.6",
     "@mui/styled-engine-sc": "^5.11.0",
@@ -18,7 +21,7 @@
     "jquery": "^3.6.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-router-dom": "^6.2.2",
+    "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.0",
     "react-tweet": "^3.2.1",
     "sass": "^1.77.4",
@@ -48,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
   }
 }

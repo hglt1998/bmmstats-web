@@ -1,67 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
-
-.subtext {
-  font-family: 'Inter', sans-serif;
-  color: #25292e;
-  font-size: 1rem;
-  line-height: 1.5;
-  letter-spacing: -0.017rem;
-  font-weight: 400;
-  text-align: center;
+/* En tu archivo CSS principal, por ejemplo, src/index.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
 
-@media only screen and (max-width: 601px) {
-  .title {
-    font-size: 7vh;
-  }
+body {
+  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
 }
 
-.image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 13vh;
-  height: 13vh;
-}
-
-.main-content {
-  justify-content: center;
-  margin: 3vh;
-}
-
-.title {
-  font-family: 'Inter', sans-serif;
-  color: #25292e;
-  font-size: 4vh;
-  padding-bottom: 4vh;
-  padding-top: 2vh;
-  font-weight: 900;
-  text-align: center;
-}
-
-#mainButton {
-  text-decoration: none;
-  color: #25292e;
-  font-family: 'Inter', sans-serif;
-  padding: 1vh;
-  padding-right: 0.5vh;
-  border: 2px solid #25292e;
-  box-shadow: rgba(17, 17, 26, 0.1) 2px 2px 16px;
-  vertical-align: middle;
-}
-
-#mainButton:hover {
-  background-color: #25292e;
-  color: aliceblue;
-}
-
-.mainButton {
-  text-align: center;
-  padding: 3vh;
-}
-
-.chevron {
-  vertical-align: middle;
-  margin-bottom: 2px;
+body * {
+  @apply transition-colors duration-2000;
 }

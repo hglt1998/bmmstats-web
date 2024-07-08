@@ -1,182 +1,72 @@
-@use "_colors";
-@use "sass:color";
+// .card-container {
+//   width: 250px;
+//   margin: 0px 5px 10px 0px;
+//   background-color: #FFF;
+//   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+//   background-position: center;
+//   overflow: hidden;
+//   position: relative;
+//   cursor: pointer;
+//   border-radius: 10px;
+//   transform-origin: center left;
+// }
 
-* {
-    font-family: 'Inter', sans-serif;
-    text-decoration: none;
-}
+// .card-container img {
+//   object-fit: cover;
+//   filter: brightness(50%);
+//   transition: all linear 0.25s;
+// }
 
-a {
-    color: #000000;
-    font-size: 2vh;
-}
+// .card-container .concept {
+//   position: absolute;
+//   line-height: 2.5vh;
+//   left: 10px;
+//   bottom: 70px;
+//   font-size: 25px;
+//   color: #FFF;
+//   text-shadow: 0px 0px 25px rgb(0, 0, 0);
+//   font-weight: bold;
+//   transition: all linear 0.25s;
+// }
 
-p {
-    padding: 0px;
-    margin: 10px;
-    font-size: calc(2vh - 4px);
-}
+// .card-container .organizer {
+//   position: absolute;
+//   line-height: 1.5vh;
+//   text-align: left;
+//   bottom: 20px;
+//   left: 10px;
+//   color: #FFF;
+//   font-size: 13px;
+//   transition: all linear 0.25s;
+//   text-shadow: 0px 0px 25px rgb(0, 0, 0);
+// }
 
-.container {
-    padding: 2vh;
-}
+// .card-container .ubicacion {
+//   position: absolute;
+//   bottom: 1px;
+//   left: 10px;
+//   color: #FFF;
+//   font-size: 13px;
+//   transition: all linear 0.25s;
+//   text-shadow: 0px 0px 25px rgb(0, 0, 0);
+// }
 
-h2 {
-    text-align: center;
-    margin-top: 1vh;
-}
+// .card-container .date {
+//   position: absolute;
+//   bottom: 200px;
+//   left: 10px;
+//   color: #FFF;
+//   font-size: 13px;
+//   transition: all linear 0.25s;
+//   text-shadow: 0px 0px 25px rgb(0, 0, 0);
+// }
 
-.chips {
-    span {
-        width: 10px;
-        height: 10px;
-        border-radius: 10px;
-        
-        &.ssanta {
-            background-color: #800080;
-        }
-        &.glorias {
-            background-color: #f5deb3;
-        }
-        &.Extraordinarias {
-            background-color: #008080;
-        }
-    }
-    align-content: center;
-    align-items: center;
-    width: 90%;
-    padding: 0px;
-    margin: auto;
-    display: flex;
-    justify-content: flex-end;
-}
+// .card-container:hover img {
+//   filter: brightness(70%)
+// }
 
-.blinker {
-    vertical-align: middle;
-    color: red;
-    animation: blinker 2s linear infinite;
-}
-
-.liveIndicator {
-    color: red;
-    animation: blinkerText 2s linear infinite;
-}
-
-
-@keyframes blinker {
-    50% {
-        background-color: rgba(255, 0, 0, 0.317);
-    }
-    0% {
-        background-color: white;
-    }
-    100% {
-        background-color: white;
-    }
-}
-@keyframes blinkerText {
-    50% {
-        color: red;
-    }
-    0% {
-        color: #000000;
-    }
-    100% {
-        color: #000000;
-    }
-}
-
-table {
-    border-collapse: collapse;
-    width: 90%;
-    margin: auto;
-
-    tr:hover {
-        z-index: 5;
-        cursor: pointer;
-    }
-
-    tr {
-        z-index: 1;
-        height: 4.4vh;
-        text-align: center;
-        
-        &.isLive {
-            animation: blinker 2s linear infinite;
-            background-color: wheat;
-            color: red;
-        }
-    }
-    
-
-    tbody > tr:nth-child(odd) {
-        background-color: #e8f1ff;
-        z-index: 1;
-    }
-
-    td {
-        font-size: 1em;
-        padding: .7vw 1vw;
-
-        span {
-            padding: .3vw .4vw;
-            border-radius: 3px;
-            
-            &.SemanaSanta {
-                background-color: #800080;
-                color: white;
-            }
-
-            &.Glorias {
-                background-color: #f5deb3;
-            }
-
-            &.ProcesiónExtraordinaria {
-                background-color: #008080;
-                color: white;
-            }
-        }
-    }
-    
-}
-
-@media only screen and (max-width: 1250px) {
-    table {
-        td {
-            font-size: 0.8em;
-        }
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .main-title {
-
-        h1{
-            font-size: 1.5em;
-        }
-
-    }
-
-    .chips {
-        span {
-            height: 5px;
-            width: 5px;
-        }
-
-        p {
-            font-size: 2.5vw;
-        }
-    }
-
-    table {
-        tr {
-            th {
-                font-size: 0.7em;
-            }
-        }
-        td {
-            font-size: 0.55em;
-        }
-    }
-
-}
+// .card-container:hover {
+//   transform: scale(1.1);
+//   z-index: 1000;
+//   transition: all linear 450ms;
+// }
