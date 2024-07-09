@@ -10,7 +10,15 @@
     "rewrites": [
       {
         "source": "/actuaciones/**",
-        "dynamicLinks": true
+        "destination": "/index.html"
+      },
+      {
+        "source": "/actuaciones",
+        "destination": "/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   },

@@ -6,6 +6,7 @@ import './Actuacion.css'
 export default function Table({ repertorios, actuacion }) {
 	const [showTwits, setShowTwits] = useState(true);
 	const [showGraph, setShowGraph] = useState(false)
+  console.log(!(actuacion.tipo !== "Pregón" || actuacion.tipo !== "Concierto"), actuacion.tipo);
 
 	return (
 
@@ -24,12 +25,12 @@ export default function Table({ repertorios, actuacion }) {
               <th className="pl-1 pr-1 md:px-4 md:py-4 border-b-2 border-gray-300 dark:border-gray-700 text-xs md:text-sm font-semibold text-gray-600 uppercase dark:text-gray-300 tracking-wider text-center">
                 Compositor
               </th>
-              {(actuacion.tipo !== 'Procesión' || actuacion.tipo !== 'Pasacalles') && (
+              {!(actuacion.tipo === 'Pregón' || actuacion.tipo == 'Concierto') && (
                 <th className="pl-1 py-2 md:px-4 md:py-4 border-b-2 border-gray-300 dark:border-gray-700 text-xs md:text-sm font-semibold text-gray-600 uppercase dark:text-gray-300 tracking-wider text-center">
                   Ubicación
                 </th>
               )}
-              {(actuacion.tipo !== 'Procesión' || actuacion.tipo !== 'Pasacalles') && (
+              {!(actuacion.tipo === 'Pregón' || actuacion.tipo == 'Concierto') && (
                 <th className="pl-1 pr-2 md:px-4 md:py-4 border-b-2 border-gray-300 dark:border-gray-700 text-xs md:text-sm font-semibold text-gray-600 uppercase dark:text-gray-300 tracking-wider text-center">
                   Hora
                 </th>
@@ -50,12 +51,12 @@ export default function Table({ repertorios, actuacion }) {
                     <td className="pl-1 pr-1 py-2 md:px-4 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-200 border-b text-wrap">
                       {item.compositor}
                     </td>
-                    {(actuacion.tipo !== 'Procesión' || actuacion.tipo !== 'Pasacalles') && (
+                    {!(actuacion.tipo === 'Pregón' || actuacion.tipo == 'Concierto') && (
                       <td className="pl-1 py-2 md:px-4 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 dark:text-gray-200 border-b text-wrap">
                         {item.ubicacion}
                       </td>
                     )}
-                    {(actuacion.tipo !== 'Procesión' || actuacion.tipo !== 'Pasacalles') && (
+                    {!(actuacion.tipo === 'Pregón' || actuacion.tipo == 'Concierto') && (
                       <td className="pl-1 pr-1 py-2 md:px-4 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-900 border-b dark:text-gray-200">
                         {item.time.match(/(?!\b\d{1,2}\/\d{1,2}\/\d{4},\s)\d{1,2}:\d{2}/)}
                       </td>

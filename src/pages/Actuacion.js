@@ -1,16 +1,16 @@
 /* eslint-disable */
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Firebase from "../database/firebase";
 import "./actuacion.css";
 import { useAppContext } from "../context/context";
-import { BriefcaseIcon, BuildingLibraryIcon, CalendarDaysIcon, CalendarIcon, MapPinIcon, PaperClipIcon, PlayCircleIcon } from "@heroicons/react/16/solid";
+import { BriefcaseIcon, BuildingLibraryIcon, CalendarIcon, MapPinIcon, PaperClipIcon, PlayCircleIcon } from "@heroicons/react/16/solid";
 import Stats from "../components/Stats";
 import Table from "../components/Table";
 import defaultCover from '../static/actuacion-cover.webp'
-import { ArrowUpOnSquareIcon, CodeBracketIcon, ShareIcon } from "@heroicons/react/24/outline";
-import { Dialog, Transition } from "@headlessui/react";
+import { ArrowUpOnSquareIcon, ShareIcon } from "@heroicons/react/24/outline";
+import { Transition } from "@headlessui/react";
 
 export default function Actuacion() {
   // <------------------------------- USE STATE ------------------------------->
@@ -27,7 +27,6 @@ export default function Actuacion() {
   const {diffHours} = useAppContext()
 
 	const navigate = useNavigate()
-	const location = useLocation()
 
   // <------------------------------- USE EFFECT ------------------------------->
 
@@ -97,7 +96,8 @@ export default function Actuacion() {
 			try {
 				if (navigator.share) {
 					navigator.share({
-						title: '🧐 ¡Mira el repertorio de esta actuación de la BM Mairena del Alcor!',
+						title: 'Actuación de la BM Mairena del Alcor',
+						text: "🧐 ¡Mira el repertorio de esta actuación de la BM Mairena del Alcor!",
 						url: window.location.href
 					}).then(() => {
 						setDropdown(false)
@@ -242,11 +242,12 @@ export default function Actuacion() {
 						{actuacion.tipo}
 					</div>
 				</div>
-				{repertorios.length > 2 && (
+				{repertorios.length > 2 && !(actuacion.tipo === "Pregón" || actuacion.tipo === "Concierto") && (
 					<Stats
 						duracion={diffHours(repertorios)}
 						porHora={repertorios?.filter((item) => !item.url).length / diffHours(repertorios)}
 						total={repertorios?.filter((item) => !item.url).length}
+						actuacion={actuacion}
 					/>
 				)}
 				<img
