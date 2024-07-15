@@ -86,7 +86,7 @@ export default function Actuaciones() {
 				leaveTo="opacity-0">
 				<div
 					id="default-modal"
-					tabindex="-1"
+					tabIndex="-1"
 					className="transition-opacity	overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-screen">
 					<div className="flex bg-slate-900/90 w-full m-auto mt-auto p-16 h-full">
 						<div className="relative bg-white p-16 rounded-lg h-auto max-w-2xl m-auto object-center shadow dark:bg-gray-700">
@@ -142,11 +142,11 @@ export default function Actuaciones() {
           </div>
         )}
         <div className="flex rounded-md justify-end mb-2">
-          <button type="button" onClick={() => setMode('grid')} className="px-4 py2 text-sm bg-white border border-gray-200 rounded-s-lg dark:bg-gray-800 dark:border-gray-700">
-            <Squares2X2Icon className="text-black h-8 w-4 flex-shrink-0 dark:text-white" />
+          <button type="button" onClick={() => setMode('grid')} className={`px-4 py2 text-sm ${mode === 'grid' ? 'bg-slate-700 border border-gray-200 dark:bg-gray-600' : 'bg-white border border-gray-200 dark:bg-gray-700'} rounded-s-lg dark:border-gray-700`}>
+            <Squares2X2Icon className={`${mode === 'grid' ? 'text-white' : 'text-black'}  h-8 w-4 flex-shrink-0 `} />
           </button>
-          <button type="button" onClick={() => setMode('list')} className="px-4 py2 text-sm bg-white border border-gray-200 rounded-r-lg dark:bg-gray-800 dark:border-gray-700">
-            <Bars4Icon className="text-black h-8 w-4 flex-shrink-0 dark:text-white focus:ring-2" />
+          <button type="button" onClick={() => setMode('list')} className={`px-4 py2 text-sm ${mode === 'list' ? 'bg-slate-700 border border-gray-200 dark:bg-gray-600' : 'bg-white border border-gray-200 dark:bg-gray-700'} rounded-r-lg dark:border-gray-700`}>
+            <Bars4Icon className={`${mode === 'list' ? 'text-white' : 'text-black'}  h-8 w-4 flex-shrink-0 `} />
           </button>
         </div>
 				{mode === 'grid' && categories.map((category, index) => (

@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import foto from '../static/actuacion-cover.webp'
 import { NavLink } from 'react-router-dom';
+import ImageSkeleton from '../components/ImageSkeleton'
+import { Transition } from '@headlessui/react';
 
-const MovieCard = ({doc}) => {
+const Card = ({doc, index}) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
+  };
+  
   return (
-    <div className="group relative w-48 h-72 flex-shrink-0 m-2 first:ml-0 shadow-lg shadow-sm shadow-white border-white rounded-lg">
-      <img 
-        src={doc.coverImage || foto} 
-        alt={""}
-        className="w-full h-full object-cover rounded-md brightness-50"
-      />
+    <div className="group relative w-48 h-72 flex-shrink-0 m-2 first:ml-0 shadow-sm shadow-white border-white rounded-lg">
+      <Transition
+        show={!isImageLoaded}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+        afterLeave={() => setIsImageLoaded(true)}
+      >
+        <div className="absolute inset-0">
+          <ImageSkeleton />
+        </div>
+      </Transition>
+      <img
+        src={doc.coverImage || foto}
+        alt=""
+        className={`w-full h-full object-cover rounded-md brightness-50 transition-opacity duration-500 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+        onLoad={handleImageLoad}
+        />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-bold rounded-md">
         <p className='absolute top-0 left-4 text-sm'>{new Date(doc.fecha.seconds * 1000).toLocaleDateString()}</p>
         <p className="mb-2">{doc.concepto}</p>
@@ -24,4 +46,4 @@ const MovieCard = ({doc}) => {
   );
 };
 
-export default MovieCard;
+export default Card;

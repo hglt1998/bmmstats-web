@@ -122,7 +122,7 @@ export default function Actuacion() {
 				leaveTo="opacity-0">
 				<div
 					id="default-modal"
-					tabindex="-1"
+					tabIndex="-1"
 					className="transition-opacity	overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-screen">
 					<div className="flex bg-slate-900/90 w-full m-auto mt-auto p-16 h-full">
 						<div className="relative bg-white p-16 rounded-lg h-auto max-w-2xl m-auto object-center shadow">

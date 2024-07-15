@@ -31,7 +31,7 @@ const CategoryCarousel = ({ title, events }) => {
           ref={carouselRef}
         >
           {events.map((event, index) => (
-            <Card key={index} doc={event} />
+            <Card key={index} doc={event} index={index} />
           ))}
         </div>
         <button 

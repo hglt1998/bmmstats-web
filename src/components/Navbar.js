@@ -1,11 +1,12 @@
 import { NavLink, useLocation} from 'react-router-dom'
 import logo from '../static/banner.png'
 import { useEffect, useState } from 'react';
-import { Bars3Icon, MoonIcon, SunIcon, XMarkIcon } from '@heroicons/react/16/solid';
+import { ArrowDownTrayIcon, Bars3Icon, MoonIcon, SunIcon, XMarkIcon } from '@heroicons/react/16/solid';
 import './navbar.css'
 import { Dialog, DialogPanel } from '@headlessui/react';
 
 export default function NavBar() {
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [darkMode, setDarkMode] = useState(false)
 	const path = useLocation()
@@ -32,7 +33,24 @@ export default function NavBar() {
 		}
   }, [darkMode, isActuacionDetail])
 
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+	let installPrompt = null;
+
+	window.addEventListener("beforeinstallprompt", (event) => {
+		event.preventDefault();
+		installPrompt = event;
+		console.log("ready");
+		document.querySelectorAll('#install').forEach(e => e.removeAttribute('hidden'))
+	});
+
+	const install = () => {
+		if (!installPrompt) {
+			return;
+		}
+		console.log("here");
+		const result = installPrompt.prompt();
+		console.log(`Install prompt was: ${result.outcome}`);
+		installPrompt = null;
+	};
 
 	const navigation = [
 		{ name: 'Home', href: '/' },
@@ -59,6 +77,9 @@ export default function NavBar() {
 						</NavLink>
 					</div>
 					<div className="flex lg:hidden">
+						<button onClick={install} hidden id="install" className='pr-5 items-center justify-center'>
+							<ArrowDownTrayIcon className='text-gray-700 size-6' />
+						</button>
 						<button
 							onClick={() => setDarkMode(!darkMode)}
 							className="pr-5">
@@ -108,6 +129,9 @@ export default function NavBar() {
 							))}
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end cursor-pointer">
+					<button id='install' onClick={install} hidden className='pr-5 items-center justify-center'>
+							<ArrowDownTrayIcon className='text-gray-700 size-6' />
+						</button>
 						<button
 							onClick={() => setDarkMode(!darkMode)}
 							className="pr-5">
