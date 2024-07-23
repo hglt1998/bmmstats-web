@@ -6,7 +6,6 @@ import './Actuacion.css'
 export default function Table({ repertorios, actuacion }) {
 	const [showTwits, setShowTwits] = useState(true);
 	const [showGraph, setShowGraph] = useState(false)
-  console.log(!(actuacion.tipo !== "Pregón" || actuacion.tipo !== "Concierto"), actuacion.tipo);
 
 	return (
 
@@ -41,7 +40,7 @@ export default function Table({ repertorios, actuacion }) {
             {repertorios.map((item, index) => (
               <>
                 {!item.url ? (
-                  <tr key={index} className="bg-white dark:bg-slate-800 text-center">
+                  <tr key={index} className={(item.enlazada % 2 ? "bg-white dark:bg-slate-800": "bg-slate-300 dark:bg-slate-500") + " text-center"}>
 										<td className="pl-1 py-2 md:px-4 md:py-4 whitespace-nowrap text-xs md:text-sm font-bold text-gray-900 border-b dark:text-gray-200 text-left">
 										{!item.url && repertorios.filter((item) => !item.url).length - repertorios.filter((filtered) => !filtered.url).map((mapped) => mapped.idInterpretacion).indexOf(item.idInterpretacion)}
 										</td>

@@ -5,14 +5,17 @@ import CategoryCarousel from "../components/CategoryCarousel";
 import FeaturedEvent from "../components/FeaturedEvent";
 import { Bars4Icon, Squares2X2Icon } from "@heroicons/react/16/solid";
 import { useNavigate } from "react-router-dom";
-import { Transition } from "@headlessui/react";
+import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 export default function Actuaciones() {
 
   const [events, setEvents] = useState([])
   const [liveEvents, setLiveEvents] = useState([])
+	const [selection, setSelection] = useState([])
   const [mode, setMode] = useState('grid')
   const [loading, setLoading] = useState(true)
+	const [cleanArray] = useState('')
 
   const navigate = useNavigate()
 
@@ -44,6 +47,15 @@ export default function Actuaciones() {
         return 'bg-slate-700 text-white'
     }
   }
+	
+	const filter = (tag) => {
+		if (selection.includes(tag)) {
+			setSelection(selection.filter((item) => item !== tag ))
+		} else {
+			setSelection([...selection, tag])
+		}
+		setEvents(events.filter((filElem) => selection.includes(filElem.tagActuacion)))
+	}
 
   const loadData = () => {
 
@@ -111,6 +123,7 @@ export default function Actuaciones() {
 					</div>
 				</div>
 			</Transition>
+			<p>{selection}</p>
 			<div className="container mx-auto pb-3">
 				{liveEvents[0] ? (
 					<div className="mt-4">
@@ -136,59 +149,124 @@ export default function Actuaciones() {
 						/>
 					</div>
 				) : (
-          <div>
-            <h1 className="text-2xl font-extrabold leading-none tracking-tight mb-4 mt-3 text-center dark:text-white uppercase [text-shadow:_0px_0px_15px_rgb(0_0_0_/_40%)]">Última actuación</h1>
-            <FeaturedEvent key={2} doc={events[0]} />
-          </div>
-        )}
-        <div className="flex rounded-md justify-end mb-2">
-          <button type="button" onClick={() => setMode('grid')} className={`px-4 py2 text-sm ${mode === 'grid' ? 'bg-slate-700 border border-gray-200 dark:bg-gray-600' : 'bg-white border border-gray-200 dark:bg-gray-700'} rounded-s-lg dark:border-gray-700`}>
-            <Squares2X2Icon className={`${mode === 'grid' ? 'text-white' : 'text-black'}  h-8 w-4 flex-shrink-0 `} />
-          </button>
-          <button type="button" onClick={() => setMode('list')} className={`px-4 py2 text-sm ${mode === 'list' ? 'bg-slate-700 border border-gray-200 dark:bg-gray-600' : 'bg-white border border-gray-200 dark:bg-gray-700'} rounded-r-lg dark:border-gray-700`}>
-            <Bars4Icon className={`${mode === 'list' ? 'text-white' : 'text-black'}  h-8 w-4 flex-shrink-0 `} />
-          </button>
-        </div>
-				{mode === 'grid' && categories.map((category, index) => (
-					<CategoryCarousel
-						key={index}
-						title={category.title}
-						events={category.movies}
-					/>
-				))}
-        {mode === 'list' && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-xs lg:text-sm text-left text-gray-500">
-              <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
-                <tr>
-                  <th scope="col" className="px-1 py-3 lg:pl-2">Concepto</th>
-                  <th scope="col" className="pr-3 py-3 text-center">Ciudad</th>
-                  <th scope="col" className="hidden lg:table-cell pr-3 py-3">Ciudad</th>
-                  <th scope="col" className="pr-3 py-3 text-center">Tipo</th>
-                  <th scope="col" className="p-0 py-3">Fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((item, index) => {
-                  const date = new Date(item.fecha.seconds * 1000).toLocaleString('es-ES', {month: "short", year: "2-digit", day: "2-digit"})
-                  return (
-                    <tr role="list" className="border-b dark:bg-slate-800 dark:border-gray-700" key={index} onClick={() => navigate(`/actuaciones/${item.idActuacion}`)}>
-                      <th scope="col" className="px-1 py-3 text-gray-900 lg:pl-2 dark:text-white">{item.concepto} <br /> <span className="font-normal text-gray-500 dark:text-gray-400">{item.organizador1}</span></th>
-                      <td className="pr-1 w-auto py-3 dark:text-gray-300 text-center whitespace-break-spaces">{item.ciudad}</td>
-                      <td className="hidden md:table-cell pr-1 py-3 dark:text-gray-300">{item.ubicacion}</td>
-                      <td className="">
-                        <div className={"items-center mx-auto p-1 rounded-md text-center " + getTagColor(item.tagActuacion)}>{item.tipo}</div>
-                      </td>
-                      <td className="p-0 py-3 px-1 dark:text-gray-300 text-center">
-                        <div>{date}</div>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+					<div>
+						<h1 className="text-2xl font-extrabold leading-none tracking-tight mb-4 mt-3 text-center dark:text-white uppercase [text-shadow:_0px_0px_15px_rgb(0_0_0_/_40%)]">Última actuación</h1>
+						<FeaturedEvent
+							key={2}
+							doc={events[0]}
+						/>
+					</div>
+				)}
+				<div className="flex rounded-md justify-end mb-2">
+					{/* {mode === 'list' && (
+						<Menu as="div" className="relative inline-block text-left mr-4">
+							<div>
+								<MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+									Filtrar
+									<ChevronDownIcon aria-hidden="true" className="-mr-1 h-5 w-5 text-gray-400" />
+								</MenuButton>
+							</div>
+							<MenuItems transition className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in">
+								<div className="py-1">
+									<MenuItem>
+										<button onClick={() => filter("Semana Santa")} className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">Semana Santa</button>
+									</MenuItem>
+									<MenuItem>
+										<button onClick={() => filter("Glorias")} className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">Glorias</button>
+									</MenuItem>
+									<MenuItem>
+										<button onClick={() => filter("Procesión Extraordinaria")} className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900">Extraordinarias</button>
+									</MenuItem>
+								</div>
+							</MenuItems>
+						</Menu>
+					)} */}
+					<button
+						type="button"
+						onClick={() => setMode("grid")}
+						className={`px-4 py2 text-sm ${
+							mode === "grid" ? "bg-slate-700 border border-gray-200 dark:bg-gray-600" : "bg-white border border-gray-200 dark:bg-gray-700"
+						} rounded-s-lg dark:border-gray-700`}>
+						<Squares2X2Icon className={`${mode === "grid" ? "text-white" : "text-black"}  h-8 w-4 flex-shrink-0 `} />
+					</button>
+					<button
+						type="button"
+						onClick={() => setMode("list")}
+						className={`px-4 py2 text-sm ${
+							mode === "list" ? "bg-slate-700 border border-gray-200 dark:bg-gray-600" : "bg-white border border-gray-200 dark:bg-gray-700"
+						} rounded-r-lg dark:border-gray-700`}>
+						<Bars4Icon className={`${mode === "list" ? "text-white" : "text-black"}  h-8 w-4 flex-shrink-0 `} />
+					</button>
+				</div>
+				{mode === "grid" &&
+					categories.map((category, index) => (
+						<CategoryCarousel
+							key={index}
+							title={category.title}
+							events={category.movies}
+						/>
+					))}
+				{mode === "list" && (
+					<div className="overflow-x-auto">
+						<table className="w-full text-xs lg:text-sm text-left text-gray-500">
+							<thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-200">
+								<tr>
+									<th
+										scope="col"
+										className="px-1 py-3 lg:pl-2">
+										Concepto
+									</th>
+									<th
+										scope="col"
+										className="pr-3 py-3 text-center">
+										Ciudad
+									</th>
+									<th
+										scope="col"
+										className="hidden lg:table-cell pr-3 py-3">
+										Ciudad
+									</th>
+									<th
+										scope="col"
+										className="pr-3 py-3 text-center">
+										Tipo
+									</th>
+									<th
+										scope="col"
+										className="p-0 py-3">
+										Fecha
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{events.map((item, index) => {
+									const date = new Date(item.fecha.seconds * 1000).toLocaleString("es-ES", { month: "short", year: "2-digit", day: "2-digit" });
+									return (
+										<tr
+											role="list"
+											className="border-b dark:bg-slate-800 dark:border-gray-700"
+											key={index}
+											onClick={() => navigate(`/actuaciones/${item.idActuacion}`)}>
+											<th
+												scope="col"
+												className="px-1 py-3 text-gray-900 lg:pl-2 dark:text-white">
+												{item.concepto} <br /> <span className="font-normal text-gray-500 dark:text-gray-400">{item.organizador1}</span>
+											</th>
+											<td className="pr-1 w-auto py-3 dark:text-gray-300 text-center whitespace-break-spaces">{item.ciudad}</td>
+											<td className="hidden md:table-cell pr-1 py-3 dark:text-gray-300">{item.ubicacion}</td>
+											<td className="">
+												<div className={"items-center mx-auto p-1 rounded-md text-center " + getTagColor(item.tagActuacion)}>{item.tipo}</div>
+											</td>
+											<td className="p-0 py-3 px-1 dark:text-gray-300 text-center">
+												<div>{date}</div>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</div>
 		</div>
 	);

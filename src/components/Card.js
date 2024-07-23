@@ -34,11 +34,11 @@ const Card = ({doc, index}) => {
         onLoad={handleImageLoad}
         />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-bold rounded-md">
-        <p className='absolute top-0 left-4 text-sm'>{new Date(doc.fecha.seconds * 1000).toLocaleDateString()}</p>
-        <p className="mb-2">{doc.concepto}</p>
-        <p className='pb-0 text-sm font-light'>{doc.organizador1}</p>
-        <p className='pt-1 mb-2 text-sm font-light'>{doc.ciudad}</p>
-        <NavLink to={`${doc.idActuacion}`} className="bg-red-600 px-4 py-2 rounded-full text-sm opacity-0 z-50 group-hover:opacity-100 transition-opacity duration-300">
+        <p className='absolute top-2 left-4 text-sm'>{new Date(doc.fecha.seconds * 1000).toLocaleDateString()}</p>
+        <p className="absolute top-20 mb-10">{doc.concepto}</p>
+        <p className='absolute top-44 align-text-top text-sm font-light'>{doc.organizador1}</p>
+        <p className='absolute bottom-10 text-sm font-light'>{doc.ciudad}</p>
+        <NavLink to={`${doc.idActuacion}`} className="bg-red-600 px-4 py-2 mt-5 rounded-full text-sm opacity-0 z-50 group-hover:opacity-100 transition-opacity duration-300">
           Ver 
         </NavLink>
       </div>
@@ -47,3 +47,4 @@ const Card = ({doc, index}) => {
 };
 
 export default Card;
+  

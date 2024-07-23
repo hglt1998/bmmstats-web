@@ -24,13 +24,13 @@ const About = () => {
 
   return (
     <div className="container mx-auto p-6 mt-14">
-      <h1 className="text-4xl font-bold mb-6">Sobre BMM STATS</h1>
-      <p className="mb-6">
+      <h1 className="text-4xl font-bold mb-6 dark:text-white">Sobre BMM STATS</h1>
+      <p className="mb-6 dark:text-white">
         BMM STATS es un proyecto del equipo IT de la <a className='text-blue-600' href='https://municipaldemairena.com'>Banda Municipal de Música de Mairena del Alcor</a>. 
       </p>
 
       <section className="mb-12">
-        <h2 className="text-3xl font-bold mb-4">Preguntas Frecuentes (FAQ)</h2>
+        <h2 className="text-3xl font-bold mb-4 dark:text-white">Preguntas Frecuentes (FAQ)</h2>
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div key={index} className="p-4 border rounded-lg shadow-md">
@@ -38,7 +38,7 @@ const About = () => {
                 onClick={() => toggleFAQ(index)}
                 className="w-full text-left flex justify-between items-center"
               >
-                <h3 className="text-xl font-semibold">{faq.question}</h3>
+                <h3 className="text-xl font-semibold dark:text-white">{faq.question}</h3>
                 <span>{openFAQ === index ? '-' : '+'}</span>
               </button>
               {openFAQ === index && (
@@ -50,18 +50,18 @@ const About = () => {
       </section>
 
       <section>
-        <h2 className="text-3xl font-bold mb-4">Asistente de Instalación</h2>
+        <h2 className="text-3xl font-bold mb-4 dark:text-white">Asistente de Instalación</h2>
         <ul className="list-decimal list-inside space-y-2">
-          <li className="p-4 border rounded-lg shadow-md">
+          <li className="p-4 border rounded-lg shadow-md dark:text-white">
             Abre el menú del navegador nativo de tu teléfono
           </li>
-          <li className="p-4 border rounded-lg shadow-md">
-            Busca la opción la siguiente opción: <pre className='bg-gray-100 pt-2 mt-2 rounded'>Añadir a pantalla de inicio</pre>
+          <li className="p-4 border rounded-lg shadow-md dark:text-white">
+            Busca la opción la siguiente opción: <pre className='bg-gray-100 pt-2 mt-2 rounded dark:text-gray-700'>Añadir a pantalla de inicio</pre>
           </li>
-          <li className="p-4 border rounded-lg shadow-md">
+          <li className="p-4 border rounded-lg shadow-md dark:text-white">
             Acepta la instalación de BMM STATS en tu pantalla de inicio
           </li>
-          <li className="p-4 border rounded-lg shadow-md">
+          <li className="p-4 border rounded-lg shadow-md dark:text-white">
             <strong>Consideraciones:</strong> BMM STATS no es una aplicación como la que descargas de la App Store o de Play Store. BMM STATS es una PWA (Progressive Web App) por lo que no ocupa memoria en tu dispositivo. Así no tendrás problemas de espacio con nuestra aplicación y la tendrás siempre disponible para consultar.
           </li>
         </ul>

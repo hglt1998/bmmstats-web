@@ -24,6 +24,8 @@ export default function Actuacion() {
 
 	const [loading, setLoading] = useState(true)
 
+	const [toastVisible, setToastVisible] = useState(false)
+
   const {diffHours} = useAppContext()
 
 	const navigate = useNavigate()
@@ -32,35 +34,42 @@ export default function Actuacion() {
 
   
   useEffect(() => {
-		const getActuacionById = async (id) => {
-			const doc = Firebase.db.collection("actuaciones").doc(id);
-      doc.onSnapshot((info) => {
-				const actuacion = info.data();
-        setActuacion(actuacion);
-      });
-			setLoading(false)
-    };
-    const loadData = (id) => {
-			const db = getDatabase();
-      const repertorioRef = ref(db, "repertorios/" + id);
-      onValue(repertorioRef, (snapshot) => {
-				const data = snapshot.val();
-        if (data) {
-					setRepertorios(Object.values(data).reverse());
-        }
-        // enable vibration support
-        navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-        
-        if (navigator.vibrate) {
-					// vibration API supported
-          navigator.vibrate(1000);
-        }
-      });
-    };
-
-    getActuacionById(id);
+		getActuacionById(id);
     loadData(id);
+
+		if (!localStorage.getItem('toastReed') && actuacion.tipo === 'Procesión') {
+			setTimeout(() => {
+				setToastVisible(true)
+			}, 3000)
+		}
+
   }, []);
+
+	const getActuacionById = async (id) => {
+		const doc = Firebase.db.collection("actuaciones").doc(id);
+		doc.onSnapshot((info) => {
+			const actuacion = info.data();
+			setActuacion(actuacion);
+		});
+		setLoading(false);
+	};
+	const loadData = (id) => {
+		const db = getDatabase();
+		const repertorioRef = ref(db, "repertorios/" + id);
+		onValue(repertorioRef, (snapshot) => {
+			const data = snapshot.val();
+			if (data) {
+				setRepertorios(Object.values(data).reverse());
+			}
+			// enable vibration support
+			navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+			if (navigator.vibrate) {
+				// vibration API supported
+				navigator.vibrate(1000);
+			}
+		});
+	};
 
 	const exportCSV = () => {
 		let csvContent = [actuacion.concepto, actuacion.organizador1, actuacion.ubicacion, new Date(actuacion.fecha.seconds * 1000).toLocaleString().slice(0, -3)].join(";") + "\r\n";
@@ -111,10 +120,67 @@ export default function Actuacion() {
 		}
 	}
 
+	const handleToast = () => {
+		setToastVisible(false)
+		localStorage.setItem('toastReed', true)
+	}
+
   // <------------------------------- GETTERS ------------------------------->
 
   return (
 		<div className="relative pt-20 p-6 min-h-screen w-auto">
+			<Transition
+        show={toastVisible}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+				<div
+					id="toast-default"
+					className="flex transition-opacity ease-in-out duration-700 fixed top-32 right-5 items-center w-full max-w-xs p-4 text-gray-500 bg-sky-50 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 z-50"
+					role="alert">
+					<div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-800 dark:text-blue-200">
+						<svg
+							class="w-5 h-5"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="currentColor"
+							viewBox="0 0 20 20">
+							<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
+						</svg>
+						<span className="sr-only">Fire icon</span>
+					</div>
+					<div className="ms-3 text-sm font-normal">
+						Las filas marcadas en color <span className="bg-slate-300 inline-flex w-5 h-3 border-[1px] border-slate-700"></span> indican que se han interpretado enlazadas
+					</div>
+					<button
+						type="button"
+						className="ms-auto -mx-1.5 -my-1.5 bg-sky-50 text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+						data-dismiss-target="#toast-default"
+						aria-label="Close"
+						onClick={handleToast}>
+						<span className="sr-only">Close</span>
+						<svg
+							className="w-3 h-3"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 14 14">
+							<path
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+							/>
+						</svg>
+					</button>
+				</div>
+			</Transition>
+
 			<Transition
 				show={loading}
 				leave="transition-all ease-in-out duration-300"
@@ -182,7 +248,7 @@ export default function Actuacion() {
 							<button
 								onClick={() => share("csv")}
 								className="py-2 text-sm font-light border-b border-gray-600 hover:bg-gray-100 hover:rounded">
-									.csv
+								.csv
 							</button>
 							<button
 								onClick={() => share("social")}
@@ -264,7 +330,7 @@ export default function Actuacion() {
 				/>
 			) : (
 				<div className="py-24 mt-0 lg:mt-64 sm:py-32">
-					<div className="mx-auto max-w-7xl px-6 lg:px-8">
+					<div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
 						<button
 							disabled
 							type="button"
@@ -287,45 +353,45 @@ export default function Actuacion() {
 							</svg>
 							Preparando...
 						</button>
-						<p>Estamos afinando nuestros instrumentos para interpretar la primera marcha.</p>
-						<p>Mientras comenzamos, puedes seguirnos en nuestras redes sociales si aún no lo has hecho:</p>
+						<p className="text-xs font-bold">Estamos afinando nuestros instrumentos para interpretar la primera marcha.</p>
+						<p className="text-xs">Mientras comenzamos, puedes seguirnos en nuestras redes sociales si aún no lo has hecho:</p>
 						<div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-2 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-4">
 							<a
-								className="flex flex-col items-center"
+								className="flex flex-col items-center text-xs"
 								href="https://twitter.com/BandaMairena">
 								<img
-									height={50}
-									width={50}
+									height={40}
+									width={40}
 									src="https://abs.twimg.com/responsive-web/client-web/icon-ios.77d25eba.png"
 								/>
 								@BandaMairena
 							</a>
 							<a
-								className="flex flex-col items-center"
+								className="flex flex-col items-center text-xs"
 								href="https://www.instagram.com/bandamairena/">
 								<img
-									height={50}
-									width={50}
+									height={40}
+									width={40}
 									src="https://static.cdninstagram.com/rsrc.php/v3/yG/r/De-Dwpd5CHc.png"
 								/>
 								@bandamairena
 							</a>
 							<a
-								className="flex flex-col items-center"
+								className="flex flex-col items-center text-xs"
 								href="https://www.tiktok.com/@bandamairena">
 								<img
-									height={50}
-									width={50}
+									height={40}
+									width={40}
 									src="https://sf-static.tiktokcdn.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png"
 								/>
 								@bandamairena
 							</a>
 							<a
-								className="flex flex-col items-center"
+								className="flex flex-col items-center text-xs"
 								href="https://www.youtube.com/@bandamairena">
 								<img
-									height={50}
-									width={50}
+									height={40}
+									width={40}
 									src="https://www.youtube.com/s/desktop/a7b1ec23/img/favicon_144x144.png"
 								/>
 								@bandamairena
