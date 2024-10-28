@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tweet } from "react-tweet";
-import Graphs from "./Graphs";
 import './Actuacion.css'
+import defaultImage from '../static/actuacion-cover.webp'
+import ExportImage from "./ExportImage";
 
 export default function Table({ repertorios, actuacion }) {
 	const [showTwits, setShowTwits] = useState(true);
-	const [showGraph, setShowGraph] = useState(false)
-
+  
 	return (
 
 		<div className="flex flex-col left-3 right-3 absolute mx-auto lg:mt-8">
 			<button onClick={() => {setShowTwits(!showTwits)}} className="flex items-center rounded-lg bg-cyan-950 text-white px-2 py-1 mb-3 self-end text-xs dark:bg-white dark:text-slate-700 z-10 sticky top-32 drop-shadow-[0px_0px_5px_white]">Twits {showTwits ? <span className="material-icons text-sm ml-1">visibility</span> : <span className="material-icons text-sm ml-1">visibility_off</span>}</button>
-      <div className="overflow-x-auto">
+      
+      {/* <ExportImage actuacion={actuacion} repertorio={repertorios} /> */}
+      
+        <div className="overflow-x-auto">
         <table className="min-w-full bg-white/70 dark:bg-slate-700 dark:text-white mb-20">
           <thead>
             <tr>

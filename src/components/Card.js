@@ -6,7 +6,6 @@ import { Transition } from '@headlessui/react';
 
 const Card = ({doc, index}) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-
   const handleImageLoad = () => {
     setIsImageLoaded(true);
   };
@@ -35,11 +34,11 @@ const Card = ({doc, index}) => {
         />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center text-lg font-bold rounded-md">
         <p className='absolute top-2 left-4 text-sm'>{new Date(doc.fecha.seconds * 1000).toLocaleDateString()}</p>
-        <p className="absolute top-20 mb-10">{doc.concepto}</p>
-        <p className='absolute top-44 align-text-top text-sm font-light'>{doc.organizador1}</p>
-        <p className='absolute bottom-10 text-sm font-light'>{doc.ciudad}</p>
+        <p className="absolute top-12 mb-10">{doc.concepto}</p>
+        <p className='absolute top-[12rem] font-bold align-text-top text-sm'>{doc.organizador1}</p>
+        <p className='absolute bottom-5 text-sm font-light'>- {doc.ciudad} -</p>
         <NavLink to={`${doc.idActuacion}`} className="bg-red-600 px-4 py-2 mt-5 rounded-full text-sm opacity-0 z-50 group-hover:opacity-100 transition-opacity duration-300">
-          Ver 
+          Ver
         </NavLink>
       </div>
     </div>

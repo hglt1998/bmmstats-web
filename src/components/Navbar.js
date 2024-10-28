@@ -1,4 +1,4 @@
-import { NavLink, useLocation} from 'react-router-dom'
+import { Link, NavLink, useLocation} from 'react-router-dom'
 import logo from '../static/banner.png'
 import { useEffect, useState } from 'react';
 import { ArrowDownTrayIcon, Bars3Icon, MoonIcon, SunIcon, XMarkIcon } from '@heroicons/react/16/solid';
@@ -38,17 +38,19 @@ export default function NavBar() {
 	window.addEventListener("beforeinstallprompt", (event) => {
 		event.preventDefault();
 		installPrompt = event;
-		console.log("ready");
 		document.querySelectorAll('#install').forEach(e => e.removeAttribute('hidden'))
 	});
+
+	const handleClick = () => {
+		setMobileMenuOpen(false)
+	}
 
 	const install = () => {
 		if (!installPrompt) {
 			return;
 		}
-		console.log("here");
 		const result = installPrompt.prompt();
-		console.log(`Install prompt was: ${result.outcome}`);
+		console.info(`Install prompt was: ${result.outcome}`);
 		installPrompt = null;
 	};
 
@@ -213,12 +215,13 @@ export default function NavBar() {
 							<div className="-my-6 divide-y divide-gray-500/10">
 								<div className="space-y-2 py-6">
 									{navigation.map((item) => (
-										<a
+										<Link
 											key={item.name}
-											href={item.href}
+											to={item.href}
+											onClick={handleClick}
 											className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:bg-gray-50 ease-linear">
 											{item.name}
-										</a>
+										</Link>
 									))}
 								</div>
 								<div className="py-6">
